@@ -1,0 +1,55 @@
+---
+const servicios = [
+  {
+    nombre: 'Derecho Penal',
+    descripcion: 'Defensa y representación en procesos penales. Protegemos sus derechos en cada etapa del proceso.',
+    icono: '⚖️',
+    acento: '#2B6CB0',
+  },
+  {
+    nombre: 'Derecho Civil',
+    descripcion: 'Contratos, obligaciones, familia y sucesiones. Asesoría integral en materia civil.',
+    icono: '📋',
+    acento: '#E8B84B',
+  },
+  {
+    nombre: 'Derecho Laboral',
+    descripcion: 'Relaciones laborales, despidos, beneficios sociales. Defensa para trabajadores y empresas.',
+    icono: '🤝',
+    acento: '#3A7D44',
+  },
+  {
+    nombre: 'Derecho Administrativo',
+    descripcion: 'Procedimientos ante entidades del Estado. Recursos administrativos y contencioso-administrativo.',
+    icono: '🏛️',
+    acento: '#2B6CB0',
+  },
+];
+---
+
+<section id="servicios" class="py-20 lg:py-28 bg-[#F3F2EF]">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <!-- Header -->
+    <div class="reveal text-center mb-14">
+      <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-3">Áreas de práctica</p>
+      <h2 class="text-3xl sm:text-4xl font-light text-[#1A1A2E]">
+        Nuestros <span class="font-medium">servicios</span>
+      </h2>
+    </div>
+
+    <!-- Grid de servicios -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      {servicios.map((s, i) => (
+        <div
+          class={`reveal reveal-delay-${i + 1} bg-white rounded-xl p-7 border border-[#E8E6E0] hover:shadow-md transition-shadow duration-300`}
+        >
+          <div class="text-2xl mb-4">{s.icono}</div>
+          <h3 class="text-lg font-medium text-[#1A1A2E] mb-2">{s.nombre}</h3>
+          <p class="text-sm text-[#5A6478] leading-relaxed">{s.descripcion}</p>
+          <div class="mt-5 h-px w-10" style={`background-color: ${s.acento}`}></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

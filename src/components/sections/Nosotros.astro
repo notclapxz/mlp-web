@@ -1,0 +1,57 @@
+---
+// Placeholders — completar con info real del Dr. Rolando
+const credenciales = [
+  { label: 'Años de experiencia', valor: '15+', acento: '#2B6CB0' },
+  { label: 'Casos gestionados', valor: '116+', acento: '#E8B84B' },
+  { label: 'Áreas de práctica', valor: '4', acento: '#3A7D44' },
+];
+
+const formacion = [
+  'Abogado — [Universidad, pendiente]',
+  'Maestría en [Especialidad, pendiente]',
+  'Colegio de Abogados de Lima',
+];
+---
+
+<section id="nosotros" class="py-20 lg:py-28 bg-[#FAFAF8]">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+
+      <!-- Texto -->
+      <div>
+        <div class="reveal">
+          <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-3">El estudio</p>
+          <h2 class="text-3xl sm:text-4xl font-light text-[#1A1A2E] mb-6 leading-snug">
+            Experiencia y <span class="font-medium">compromiso</span><br />en cada caso
+          </h2>
+        </div>
+
+        <p class="reveal reveal-delay-1 text-[#5A6478] leading-relaxed mb-6">
+          Media & Legal Planning Chamber es un estudio jurídico con sede en Lima, Perú. Brindamos asesoría legal a personas naturales y empresas con un enfoque directo, claro y orientado a resultados.
+        </p>
+
+        <!-- Formación — placeholders -->
+        <ul class="reveal reveal-delay-2 space-y-3">
+          {formacion.map((item) => (
+            <li class="flex items-start gap-3 text-sm text-[#5A6478]">
+              <span class="mt-1 w-1.5 h-1.5 rounded-full bg-[#2B6CB0] shrink-0"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-1 gap-5">
+        {credenciales.map((c, i) => (
+          <div class={`reveal reveal-delay-${i + 1} bg-[#F3F2EF] rounded-xl px-7 py-6 flex items-center gap-5`}>
+            <span class="text-4xl font-light" style={`color: ${c.acento}`}>{c.valor}</span>
+            <span class="text-sm text-[#5A6478]">{c.label}</span>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </div>
+</section>
