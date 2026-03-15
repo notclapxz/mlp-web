@@ -1,45 +1,66 @@
 ---
-// Placeholders — completar con info real del Dr. Rolando
 const credenciales = [
-  { label: 'Años de experiencia', valor: '15+', acento: '#2B6CB0' },
+  { label: 'Años de experiencia', valor: '28+', acento: '#2B6CB0' },
   { label: 'Casos gestionados', valor: '116+', acento: '#E8B84B' },
-  { label: 'Áreas de práctica', valor: '4', acento: '#3A7D44' },
+  { label: 'Maestrías y posgrados', valor: '5', acento: '#3A7D44' },
 ];
 
 const formacion = [
-  'Abogado — [Universidad, pendiente]',
-  'Maestría en [Especialidad, pendiente]',
-  'Colegio de Abogados de Lima',
+  { titulo: 'Abogado — Derecho', inst: 'Pontificia Universidad Católica del Perú (PUCP)' },
+  { titulo: 'Maestría en Ciencias Penales', inst: 'Universidad Nacional Mayor de San Marcos' },
+  { titulo: 'Master en Gerencia Pública', inst: 'EUCIM Business School' },
+  { titulo: 'Máster en Alta Dirección Empresarial', inst: 'European Open Business School' },
+  { titulo: 'Máster en Política Criminal', inst: 'Universidad de Salamanca' },
 ];
 ---
 
 <section id="nosotros" class="py-20 lg:py-28 bg-[#FAFAF8]">
   <div class="max-w-5xl mx-auto px-6">
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+    <!-- Header -->
+    <div class="reveal text-center mb-14">
+      <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-3">El estudio</p>
+      <h2 class="text-3xl sm:text-4xl font-light text-[#1A1A2E]">
+        Trayectoria y <span class="font-medium">formación</span>
+      </h2>
+    </div>
 
-      <!-- Texto -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
+
+      <!-- Foto + datos personales -->
       <div>
-        <div class="reveal">
-          <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-3">El estudio</p>
-          <h2 class="text-3xl sm:text-4xl font-light text-[#1A1A2E] mb-6 leading-snug">
-            Experiencia y <span class="font-medium">compromiso</span><br />en cada caso
-          </h2>
+        <!-- Identidad -->
+        <div class="reveal flex flex-col sm:flex-row gap-6 items-start mb-8">
+          <!-- Placeholder foto — reemplazar con <img src="/dr-rolando.jpg"> cuando se tenga la foto -->
+          <div class="w-24 h-24 rounded-full bg-[#E8E6E0] flex items-center justify-center shrink-0 border-2 border-[#E8E6E0]">
+            <span class="text-2xl font-semibold text-[#5A6478]">RZ</span>
+          </div>
+          <div>
+            <p class="font-medium text-[#1A1A2E] text-lg leading-tight">Dr. Rolando Zagret<br/>Risco Valera</p>
+            <p class="text-sm text-[#5A6478] mt-1">Abogado — CAL N° 35124</p>
+            <p class="text-sm text-[#5A6478]">Canaval y Moreyra 290, San Isidro</p>
+          </div>
         </div>
 
-        <p class="reveal reveal-delay-1 text-[#5A6478] leading-relaxed mb-6">
-          Media & Legal Planning Chamber es un estudio jurídico con sede en Lima, Perú. Brindamos asesoría legal a personas naturales y empresas con un enfoque directo, claro y orientado a resultados.
+        <p class="reveal reveal-delay-1 text-[#5A6478] leading-relaxed mb-8">
+          Media & Legal Planning Chamber es un estudio jurídico con sede en San Isidro, Lima. Con más de 28 años de ejercicio profesional, brindamos asesoría legal a personas naturales y empresas con un enfoque directo y orientado a resultados.
         </p>
 
-        <!-- Formación — placeholders -->
-        <ul class="reveal reveal-delay-2 space-y-3">
-          {formacion.map((item) => (
-            <li class="flex items-start gap-3 text-sm text-[#5A6478]">
-              <span class="mt-1 w-1.5 h-1.5 rounded-full bg-[#2B6CB0] shrink-0"></span>
-              {item}
-            </li>
-          ))}
-        </ul>
+        <!-- Formación académica -->
+        <div class="reveal reveal-delay-2">
+          <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-4">Formación académica</p>
+          <ul class="space-y-4">
+            {formacion.map((item) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#2B6CB0] shrink-0"></span>
+                <div>
+                  <p class="text-sm font-medium text-[#1A1A2E]">{item.titulo}</p>
+                  <p class="text-xs text-[#5A6478]">{item.inst}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <!-- Stats -->
@@ -50,6 +71,13 @@ const formacion = [
             <span class="text-sm text-[#5A6478]">{c.label}</span>
           </div>
         ))}
+
+        <!-- Dirección destacada -->
+        <div class="reveal reveal-delay-4 bg-[#F3F2EF] rounded-xl px-7 py-6">
+          <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-2">Ubicación</p>
+          <p class="text-sm font-medium text-[#1A1A2E]">Canaval y Moreyra 290</p>
+          <p class="text-sm text-[#5A6478]">San Isidro, Lima — Perú</p>
+        </div>
       </div>
 
     </div>
