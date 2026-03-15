@@ -26,25 +26,36 @@
 - Quiere transmitir: seriedad, confianza, tranquilidad
 - Audiencia: personas naturales (mayoría) y empresas
 
-### Especialidades legales (del código de abogados-app)
+### Especialidades legales
 - **Penal** ← principal, la mayoría de sus casos
 - Civil
-- Laboral  
+- Laboral
 - Administrativo
 
-### Datos verificados desde producción (abogados-app)
-- **116+ casos** gestionados en producción activa
-- App LexDesk (abogados-app) corriendo en producción con esos datos reales
+### Formación académica (completa)
+| # | Título | Institución |
+|---|--------|------------|
+| 01 | Abogado — Derecho | PUCP (1990–1997) |
+| 02 | Maestría en Ciencias Penales | UNMSM (2005–2006) |
+| 03 | Master en Gerencia Pública | EUCIM Business School (2017–2018) |
+| 04 | Máster en Alta Dirección Empresarial | European Open Business School (2020–2021) |
+| 05 | Máster en Política Criminal | Universidad de Salamanca (2023–2025) |
+
+### Stats verificados
+- **28+** años de ejercicio profesional
+- **116+** casos gestionados (dato real de producción)
+- **5** maestrías y posgrados
+- **4** áreas de práctica
 
 ---
 
 ## Logo
 
-- Tricolor: **M** amarillo/dorado · **L** verde · **P** azul institucional
-- Archivo original: imagen PNG cuadrada 1024×1024 (Sebastian lo tiene)
-- En la web se usa como texto renderizado con CSS (no imagen SVG todavía)
+- Tricolor: **M** amarillo/dorado `#E8B84B` · **L** verde `#3A7D44` · **P** azul `#2B6CB0`
+- Archivo PNG 1024×1024 disponible (Sebastian lo tiene)
+- En la web se usa como texto renderizado con CSS — no hay SVG todavía
 
-### Paleta de colores (extraída del logo)
+### Paleta de colores
 
 | Variable CSS | Hex | Uso |
 |---|---|---|
@@ -63,142 +74,135 @@
 
 | Capa | Tecnología |
 |------|-----------|
-| Framework | Astro 6.x (SSG — static site generation) |
+| Framework | Astro 6.x (SSG) |
 | Estilos | Tailwind CSS v4 via `@tailwindcss/vite` |
 | TypeScript | Sí (strict) |
 | Fuente | Inter (Google Fonts) |
 | Sitemap | `@astrojs/sitemap` |
-| Deploy destino | Cloudflare Pages (pendiente configurar) |
+| Deploy destino | Cloudflare Pages (pendiente) |
 | Node | >=22.12.0 |
 
 ### Reglas de desarrollo
-- **NUNCA buildear local** — solo `commit + push`, Cloudflare Pages buildea automático
+- **NUNCA buildear local** — solo `commit + push`
 - **Conventional commits** siempre, sin Co-Authored-By
-- Tailwind v4 — sintaxis diferente a v3: variables en `@theme {}`, no en `tailwind.config.js`
-- CSS puro para animaciones — sin librerías JS de animación
+- Tailwind v4 — variables en `@theme {}`, NO en `tailwind.config.js`
+- CSS puro para animaciones — sin librerías JS
 - Intersection Observer vanilla para scroll reveal
 
 ---
 
-## Estructura de archivos
+## Estructura de archivos actual
 
 ```
 mlp-web/
-├── astro.config.mjs          ← site: 'https://mlpperu.com', Tailwind v4 + sitemap
-├── package.json
+├── astro.config.mjs          ← site: 'https://mlpperu.com'
 ├── src/
-│   ├── pages/
-│   │   └── index.astro       ← única página, importa todos los componentes
-│   ├── layouts/
-│   │   └── Layout.astro      ← HTML base, meta SEO, OG tags, Inter font, scroll reveal script
-│   ├── styles/
-│   │   └── global.css        ← @import tailwindcss + @theme variables + .reveal classes
+│   ├── pages/index.astro     ← Nav → Hero → Servicios → Nosotros → Contacto → Footer
+│   ├── layouts/Layout.astro  ← SEO, OG, Inter, scroll reveal script, botón WhatsApp flotante
+│   ├── styles/global.css     ← @theme variables, .reveal, .bg-pattern, .bg-pattern-surface
 │   └── components/
-│       ├── Nav.astro          ← navbar fija, logo MLP + links + botón Consultar
-│       ├── Footer.astro       ← logo + copyright + email
+│       ├── Nav.astro          ← navbar fija, logo MLP tricolor CSS + links + botón Consultar
+│       ├── Footer.astro       ← logo + copyright + email + LinkedIn
 │       └── sections/
-│           ├── Hero.astro     ← logo cuadrado, nombre completo, tagline, 2 CTAs
-│           ├── Servicios.astro ← 4 cards: Penal, Civil, Laboral, Administrativo
-│           ├── Nosotros.astro  ← stats + lista formación (con placeholders)
-│           └── Contacto.astro  ← email + formulario mailto
-└── public/                   ← vacío — agregar favicon cuando tengamos SVG
+│           ├── Hero.astro     ← centrado, logo cuadrado, nombre, tagline, CTAs, stats row
+│           ├── Servicios.astro ← 4 cards con SVG icons profesionales (sin emojis)
+│           ├── Nosotros.astro  ← foto circular Dr. Rolando + badge CAL + formación numerada
+│           └── Contacto.astro  ← email + WhatsApp + LinkedIn + formulario mailto
+└── public/
+    └── dr-rolando.jpg        ← 176×176px, foto de evento social del LinkedIn
 ```
-
-### Orden de secciones en index.astro
-```
-Nav → Hero → Servicios → Nosotros → Contacto → Footer
-```
-
-### Fondos alternados de secciones
-| Sección | Fondo |
-|---------|-------|
-| Hero | `#FAFAF8` (cream) |
-| Servicios | `#F3F2EF` (surface) |
-| Nosotros | `#FAFAF8` (cream) |
-| Contacto | `#F3F2EF` (surface) |
-| Footer | `#1A1A2E` (dark) |
 
 ---
 
-## Animaciones
+## Estado del diseño (sesión 2026-03-15)
 
-- Clase `.reveal` en cada elemento — `opacity: 0` + `translateY(24px)`
-- Clase `.visible` la agrega el Intersection Observer en `Layout.astro`
-- Delays: `.reveal-delay-1` a `.reveal-delay-4` para escalonar elementos
-- `prefers-reduced-motion: reduce` desactiva todo — accesible
-- Todo en CSS puro — cero librerías JS
+### ✅ Funcionando
+- Toda la info real del Dr. Rolando en producción
+- SVG icons profesionales en Servicios (sin emojis)
+- Foto circular con badge "CAL N° 35124"
+- Botón flotante WhatsApp verde
+- Patrón de puntos en fondo (`bg-pattern`)
+- Stats en Hero: 28+ / 116+ / 5 / 4
+- LinkedIn en Contacto y Footer
+
+### ⚠️ Problema de diseño identificado — NO RESUELTO
+**El Hero se ve vacío.** El fondo con puntos apenas se nota en pantallas Retina (Mac M5). El contenido flota en el centro sin anclas visuales.
+
+**Solución acordada para próxima sesión:**
+Reemplazar el Hero actual por un **Hero con imagen de fondo de la oficina** — estilo Estudio Rodrigo (`estudiorodrigo.com`). Texto blanco sobre imagen oscura con overlay semitransparente.
+
+**Referencia de inspiración analizada:** `https://www.estudiorodrigo.com/`
+- Hero con foto ambiente de sala de reuniones/despacho oscuro y elegante
+- Título en blanco sobre imagen con overlay
+- Tipografía serif para títulos da autoridad legal
+- Fondo blanco puro para el resto del contenido (sin patrones)
+
+**Lo que se necesita para implementar:**
+- ⏳ **Foto de la oficina** de Canaval y Moreyra 290 — Sebastian la va a sacar cuando pueda
+- Mientras no haya foto real, se puede usar una de Unsplash temporalmente (sala de reuniones oscura)
+- Guardar la foto como `public/hero-oficina.jpg`
+
+**Instrucciones para cuando llegue la foto:**
+1. Copiar imagen a `public/hero-oficina.jpg`
+2. En `Hero.astro`: cambiar `<section>` a tener `background-image: url('/hero-oficina.jpg')`
+3. Agregar overlay oscuro semitransparente (`bg-black/50` o similar)
+4. Cambiar texto a blanco (`text-white`)
+5. Considerar cambiar fuente del H1 a serif (Georgia) para más autoridad
 
 ---
 
-## Pendientes (info que falta del Dr. Rolando)
+## Pendientes para próxima sesión
 
-> Estos datos están como placeholders en el código con texto `[pendiente]` — fácil de encontrar con grep
+### 🔴 Bloqueado esperando assets
+| Asset | Dónde guardar | Para qué |
+|-------|--------------|----------|
+| **Foto de la oficina** | `public/hero-oficina.jpg` | Fondo del Hero — el cambio más importante |
+| **Logo SVG** | `public/favicon.svg` | Favicon + reemplazar texto CSS |
 
-| Dato | Archivo | Estado |
-|------|---------|--------|
-| Universidad de pregrado | `Nosotros.astro` | ✅ PUCP |
-| Maestrías | `Nosotros.astro` | ✅ 5 maestrías completas |
-| WhatsApp | `Contacto.astro` + `Layout.astro` | ✅ +51 953 869 245 |
-| Años de experiencia | `Nosotros.astro` | ✅ 28+ (desde 1997 PUCP) |
-| LinkedIn | `Contacto.astro` + `Footer.astro` | ✅ link real |
-| CAL | `Nosotros.astro` | ✅ N° 35124 |
-| Dirección | `Nosotros.astro` | ✅ Canaval y Moreyra 290, San Isidro |
-| Foto del Dr. Rolando | `Nosotros.astro` + `public/` | ⏳ Placeholder "RZ" — agregar `dr-rolando.jpg` en `public/` |
-| Logo SVG oficial | `public/` | ⏳ No hay — usar como favicon cuando lo tengan |
-
-Para reemplazar la foto cuando la tengan:
-1. Copiar imagen a `public/dr-rolando.jpg`
-2. En `Nosotros.astro` reemplazar el div placeholder "RZ" por:
-```astro
-<img src="/dr-rolando.jpg" alt="Dr. Rolando Zagret Risco Valera"
-  class="w-24 h-24 rounded-full object-cover object-top border-2 border-[#E8E6E0] shrink-0" />
-```
+### 🟡 Sin bloqueo — se puede hacer ahora
+1. **Crear repo GitHub** → `github.com/notclapxz/mlp-web`
+2. **Conectar Cloudflare Pages** y configurar DNS en GoDaddy
+3. **Mejorar formulario** — reemplazar `mailto:` por Web3Forms o Formspree (gratis, sin backend)
+4. **Tipografía serif** para H1 del Hero — da más autoridad sin necesitar foto
 
 ---
 
 ## Formulario de contacto
 
-Actualmente usa `action="mailto:..."` — **abre el cliente de email del usuario**.  
-Es funcional pero básico. Si en el futuro se quiere un formulario que envíe directo al email:
-- Opción A: **Resend** con Astro API endpoint (`src/pages/api/contact.ts`)
-- Opción B: **Formspree** (sin backend, solo HTML)
-- Opción C: **Web3Forms** (gratis, sin backend)
+Actualmente usa `action="mailto:..."` — abre el cliente de email del usuario. En mobile casi no funciona.
 
-Por ahora el mailto está bien para empezar.
+**Opciones para reemplazarlo (sin backend):**
+- **Web3Forms** — gratis hasta 250 envíos/mes, solo HTML, llega al email directo
+- **Formspree** — gratis hasta 50 envíos/mes
+- **Resend** — requiere API endpoint en Astro (`src/pages/api/contact.ts`)
+
+Recomendación: **Web3Forms** — más fácil, solo agregar `action="https://api.web3forms.com/submit"` y una clave de acceso gratis.
 
 ---
 
-## Deploy (pendiente — configurar al final)
+## Deploy (pendiente)
 
 ### Situación actual del dominio
-- `mlpperu.com` está en **GoDaddy** (no en Cloudflare)
-- Sin SSL activo — aparece como "no seguro" en el browser
-- Actualmente apunta a una web vieja con solo fondo + email
+- `mlpperu.com` en **GoDaddy** — sin SSL, apunta a web vieja
+- `agenda.mlpperu.com` → Vercel (Agendai del Dr. Rolando) — **INTOCABLE**
 
-### Plan de deploy
-1. Crear repo en GitHub: `github.com/notclapxz/mlp-web`
-2. Conectar a **Cloudflare Pages** (igual que clapxz-landing)
-3. En GoDaddy: cambiar nameservers a Cloudflare **O** agregar CNAME a Cloudflare Pages
-4. SSL se resuelve automático con Cloudflare
+### Plan
+1. Crear repo GitHub: `github.com/notclapxz/mlp-web`
+2. Conectar a Cloudflare Pages
+3. En GoDaddy: agregar CNAME `mlpperu.com → cname.pages.dev` O mover nameservers a Cloudflare
+4. SSL automático con Cloudflare
 
-### Alternativa si no quieren mover a Cloudflare
-- Deploy en Vercel y apuntar DNS de GoDaddy al dominio de Vercel con CNAME
-- Sebastian ya tiene cuenta Vercel activa (`notclapxz`) — plan free: 3 proyectos
+> ⚠️ Al mover DNS de GoDaddy, verificar que `agenda.mlpperu.com` siga apuntando a Vercel. No tocar ese subdominio.
 
 ---
 
-## Decisiones técnicas tomadas
+## Relación con otros proyectos
 
-| Decisión | Razón |
-|----------|-------|
-| Astro SSG (sin framework JS) | Landing estática, carga instantánea, cero mantenimiento |
-| Una sola página (single page) | El Dr. Rolando es minimalista — no quiere mucho contenido |
-| Sin foto hero | No se tiene foto todavía — diseño funciona sin ella |
-| Logo como texto CSS | No se tiene SVG todavía — se puede reemplazar con `<img>` cuando lo haya |
-| Formulario mailto | Sin backend por ahora — funcional y cero infraestructura |
-| Fuente Inter (Google Fonts) | Limpia, legible, institucional — ni demasiado formal ni informal |
-| Paleta basada en el logo | El logo ya define los colores — mantener coherencia de marca |
-| CSS puro para animaciones | Cero JS extra, respeta prefers-reduced-motion |
+| Proyecto | Relación |
+|----------|----------|
+| `agenda-legal` (Vercel) | Agendai del Dr. Rolando — `agenda.mlpperu.com` — **INTOCABLE** |
+| `abogados-app/despacho-web` | LexDesk (CRM) — **INTOCABLE** |
+| `clapxz-landing` | Landing de Sebastian |
 
 ---
 
@@ -208,45 +212,6 @@ Por ahora el mailto está bien para empezar.
 # Dev server (puerto 4322 para no chocar con clapxz-landing en 4321)
 npm run dev -- --port 4322
 
-# Buscar placeholders pendientes
-grep -r "pendiente" src/
-
 # Ver estado git
-git status
 git log --oneline
 ```
-
----
-
-## Relación con otros proyectos de Sebastian
-
-| Proyecto | Relación |
-|----------|----------|
-| `agenda-legal` (Vercel) | Agendai del Dr. Rolando — `agenda.mlpperu.com` — **INTOCABLE sin orden explícita** |
-| `abogados-app/despacho-web` | LexDesk (CRM legal) — también del Dr. Rolando — **INTOCABLE** |
-| `clapxz-landing` | Landing de Sebastian — menciona "Despacho Legal" como producto |
-
-> ⚠️ NUNCA tocar `agenda-legal` ni `abogados-app` trabajando en este repo.
-
----
-
-## Estado actual (sesión 2026-03-14)
-
-### ✅ Hecho (sesión 2026-03-14)
-- Proyecto Astro 6 scaffoldeado con Tailwind v4 + sitemap
-- Layout base con SEO, OG, Inter font, scroll reveal
-- Nav fija con logo tricolor
-- Hero: logo cuadrado, nombre completo, tagline, 2 CTAs
-- Servicios: 4 cards (Penal, Civil, Laboral, Administrativo)
-- Nosotros: 5 maestrías reales, 28+ años, CAL 35124, dirección San Isidro
-- Contacto: email + WhatsApp + LinkedIn + formulario mailto
-- Footer: logo + email + LinkedIn
-- Botón flotante WhatsApp verde (esquina inferior derecha)
-- AGENTS.md completo con todo el contexto
-
-### 🔴 Pendiente para próxima sesión
-1. **Foto del Dr. Rolando** — guardar como `public/dr-rolando.jpg` y reemplazar placeholder "RZ"
-2. **Crear repo GitHub** → `github.com/notclapxz/mlp-web`
-3. **Conectar a Cloudflare Pages** (igual que clapxz-landing)
-4. **Configurar DNS en GoDaddy** → apuntar `mlpperu.com` a Cloudflare Pages
-5. **Favicon** con logo MLP cuando tengan SVG
