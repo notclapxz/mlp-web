@@ -15,7 +15,10 @@
 - **Relación con Sebastian**: papá (familia — NO es cliente externo, es familia)
 - **Estudio**: Media & Legal Planning Chamber (MLP)
 - **Email de contacto**: `consultas@mlpperu.com`
-- **Teléfono**: pendiente confirmar si quiere que aparezca en la web
+- **WhatsApp**: +51 953 869 245 (número confirmado, en producción)
+- **LinkedIn**: https://www.linkedin.com/in/rolando-zagret-risco-valera-6024731aa/
+- **CAL**: N° 35124 (Colegio de Abogados de Lima)
+- **Dirección**: Canaval y Moreyra 290, San Isidro, Lima
 - **Dominio**: `mlpperu.com` — registrado en **GoDaddy** (no en Cloudflare)
 
 ### Perfil del cliente
@@ -131,18 +134,24 @@ Nav → Hero → Servicios → Nosotros → Contacto → Footer
 
 > Estos datos están como placeholders en el código con texto `[pendiente]` — fácil de encontrar con grep
 
-| Dato | Archivo | Placeholder actual |
-|------|---------|-------------------|
-| Universidad de pregrado | `Nosotros.astro` | `Abogado — [Universidad, pendiente]` |
-| Maestría/s y especialidad | `Nosotros.astro` | `Maestría en [Especialidad, pendiente]` |
-| Teléfono/WhatsApp | `Contacto.astro` | No aparece — agregar si confirma |
-| Años de experiencia | `Nosotros.astro` | `15+` (estimado — confirmar) |
-| Foto del Dr. Rolando | — | No hay — opcional para sección Nosotros |
-| Logo SVG oficial | `public/` | No hay — usar como favicon cuando lo tengan |
+| Dato | Archivo | Estado |
+|------|---------|--------|
+| Universidad de pregrado | `Nosotros.astro` | ✅ PUCP |
+| Maestrías | `Nosotros.astro` | ✅ 5 maestrías completas |
+| WhatsApp | `Contacto.astro` + `Layout.astro` | ✅ +51 953 869 245 |
+| Años de experiencia | `Nosotros.astro` | ✅ 28+ (desde 1997 PUCP) |
+| LinkedIn | `Contacto.astro` + `Footer.astro` | ✅ link real |
+| CAL | `Nosotros.astro` | ✅ N° 35124 |
+| Dirección | `Nosotros.astro` | ✅ Canaval y Moreyra 290, San Isidro |
+| Foto del Dr. Rolando | `Nosotros.astro` + `public/` | ⏳ Placeholder "RZ" — agregar `dr-rolando.jpg` en `public/` |
+| Logo SVG oficial | `public/` | ⏳ No hay — usar como favicon cuando lo tengan |
 
-Para encontrar todos los pendientes:
-```bash
-grep -r "pendiente" src/
+Para reemplazar la foto cuando la tengan:
+1. Copiar imagen a `public/dr-rolando.jpg`
+2. En `Nosotros.astro` reemplazar el div placeholder "RZ" por:
+```astro
+<img src="/dr-rolando.jpg" alt="Dr. Rolando Zagret Risco Valera"
+  class="w-24 h-24 rounded-full object-cover object-top border-2 border-[#E8E6E0] shrink-0" />
 ```
 
 ---
@@ -223,21 +232,21 @@ git log --oneline
 
 ## Estado actual (sesión 2026-03-14)
 
-### ✅ Hecho
+### ✅ Hecho (sesión 2026-03-14)
 - Proyecto Astro 6 scaffoldeado con Tailwind v4 + sitemap
 - Layout base con SEO, OG, Inter font, scroll reveal
 - Nav fija con logo tricolor
 - Hero: logo cuadrado, nombre completo, tagline, 2 CTAs
-- Servicios: 4 cards con acentos de color del logo
-- Nosotros: stats (116+ casos, 15+ años) + formación con placeholders
-- Contacto: email + formulario mailto
-- Footer oscuro con logo + email
-- Git init, rama `main`, primer commit
+- Servicios: 4 cards (Penal, Civil, Laboral, Administrativo)
+- Nosotros: 5 maestrías reales, 28+ años, CAL 35124, dirección San Isidro
+- Contacto: email + WhatsApp + LinkedIn + formulario mailto
+- Footer: logo + email + LinkedIn
+- Botón flotante WhatsApp verde (esquina inferior derecha)
+- AGENTS.md completo con todo el contexto
 
 ### 🔴 Pendiente para próxima sesión
-1. Conseguir info del Dr. Rolando: universidad, maestría/s, teléfono (opcional)
-2. Crear repo en GitHub y conectar a Cloudflare Pages
-3. Configurar DNS en GoDaddy para apuntar a Cloudflare Pages
-4. Agregar favicon (cuando haya SVG del logo)
-5. Reemplazar logo CSS por imagen SVG real cuando esté disponible
-6. Decidir si agregar foto del Dr. Rolando en sección Nosotros
+1. **Foto del Dr. Rolando** — guardar como `public/dr-rolando.jpg` y reemplazar placeholder "RZ"
+2. **Crear repo GitHub** → `github.com/notclapxz/mlp-web`
+3. **Conectar a Cloudflare Pages** (igual que clapxz-landing)
+4. **Configurar DNS en GoDaddy** → apuntar `mlpperu.com` a Cloudflare Pages
+5. **Favicon** con logo MLP cuando tengan SVG
