@@ -1,26 +1,43 @@
 ---
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-[#FAFAF8]/90 backdrop-blur-sm border-b border-[#E8E6E0]">
-  <div class="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-transparent">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
     <!-- Logo text -->
     <a href="#inicio" class="flex items-center gap-2 no-underline">
       <span class="text-xl font-semibold tracking-tight">
-        <span style="color: #E8B84B">M</span><span style="color: #3A7D44">L</span><span style="color: #2B6CB0">P</span>
+        <span class="text-gold">M</span><span class="text-green">L</span><span class="nav-logo-p text-white transition-colors duration-300">P</span>
       </span>
-      <span class="hidden sm:block text-sm text-[#5A6478] font-light">Media & Legal Planning</span>
+      <span class="hidden sm:block text-sm nav-subtitle font-light transition-colors duration-300">Media & Legal Planning</span>
     </a>
 
     <!-- Links -->
-    <div class="flex items-center gap-6 text-sm text-[#5A6478]">
-      <a href="#servicios" class="hover:text-[#1A1A2E] transition-colors duration-200 hidden sm:block">Servicios</a>
-      <a href="#nosotros" class="hover:text-[#1A1A2E] transition-colors duration-200 hidden sm:block">Nosotros</a>
+    <div class="flex items-center gap-6 text-sm">
+      <a href="#servicios" class="nav-link transition-colors duration-200 hidden sm:block">Servicios</a>
+      <a href="#nosotros" class="nav-link transition-colors duration-200 hidden sm:block">Nosotros</a>
       <a
         href="#contacto"
-        class="px-4 py-2 bg-[#2B6CB0] text-white text-sm rounded-md hover:bg-[#1E4E8C] transition-colors duration-200"
+        class="px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm rounded-md hover:bg-white hover:text-text transition-all duration-200 nav-cta"
       >
         Consultar
       </a>
     </div>
   </div>
 </nav>
+
+<script>
+  const nav = document.getElementById('main-nav');
+  if (nav) {
+    const handleScroll = () => {
+      if (window.scrollY > 80) {
+        nav.classList.remove('nav-transparent');
+        nav.classList.add('nav-solid');
+      } else {
+        nav.classList.remove('nav-solid');
+        nav.classList.add('nav-transparent');
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+  }
+</script>

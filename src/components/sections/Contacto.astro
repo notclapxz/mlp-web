@@ -4,7 +4,21 @@ const whatsappMsg = encodeURIComponent('Hola Dr. Rolando, me gustaría coordinar
 const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
 ---
 
-<section id="contacto" class="py-20 lg:py-28 bg-[#F3F2EF]">
+<!-- Franja visual antes de contacto -->
+<div class="relative h-48 sm:h-64 lg:h-72 overflow-hidden">
+  <div
+    class="absolute inset-0 bg-cover bg-center bg-fixed"
+    style="background-image: url('/oficina-despacho.png')"
+  ></div>
+  <div class="absolute inset-0 bg-black/40"></div>
+  <div class="relative z-10 h-full flex items-center justify-center">
+    <p class="reveal text-white text-lg sm:text-2xl font-light tracking-wide text-center px-6" style="font-family: var(--font-serif)">
+      "La mejor defensa comienza con una buena consulta"
+    </p>
+  </div>
+</div>
+
+<section id="contacto" class="py-20 lg:py-28 bg-surface">
   <div class="max-w-5xl mx-auto px-6">
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-start">
@@ -12,24 +26,24 @@ const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
       <!-- Info -->
       <div>
         <div class="reveal">
-          <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-3">Contacto</p>
-          <h2 class="text-3xl sm:text-4xl font-light text-[#1A1A2E] mb-6 leading-snug">
+          <p class="text-xs font-medium tracking-widest text-text-muted uppercase mb-3">Contacto</p>
+          <h2 class="text-3xl sm:text-4xl font-light text-text mb-6 leading-snug">
             ¿Necesita <span class="font-medium">asesoría legal</span>?
           </h2>
         </div>
 
-        <p class="reveal reveal-delay-1 text-[#5A6478] leading-relaxed mb-8">
+        <p class="reveal reveal-delay-1 text-text-muted leading-relaxed mb-8">
           Escríbanos para coordinar una consulta. Respondemos dentro de las 24 horas hábiles.
         </p>
 
         <!-- Email -->
         <div class="reveal reveal-delay-2 flex items-center gap-3 mb-4">
-          <div class="w-9 h-9 rounded-full bg-[#2B6CB0]/10 flex items-center justify-center shrink-0">
-            <svg class="w-4 h-4 text-[#2B6CB0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <div class="w-9 h-9 rounded-full bg-blue/10 flex items-center justify-center shrink-0">
+            <svg class="w-4 h-4 text-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </div>
-          <a href="mailto:consultas@mlpperu.com" class="text-[#2B6CB0] hover:text-[#1E4E8C] transition-colors duration-200 text-sm font-medium">
+          <a href="mailto:consultas@mlpperu.com" class="text-blue hover:text-blue-dark transition-colors duration-200 text-sm font-medium">
             consultas@mlpperu.com
           </a>
         </div>
@@ -73,38 +87,38 @@ const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
           class="space-y-4"
         >
           <div>
-            <label class="block text-xs font-medium text-[#5A6478] uppercase tracking-wide mb-1.5">Nombre</label>
+            <label class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Nombre</label>
             <input
               type="text"
               name="name"
               placeholder="Su nombre completo"
-              class="w-full px-4 py-2.5 text-sm border border-[#E8E6E0] rounded-md bg-[#FAFAF8] text-[#1A1A2E] placeholder:text-[#B0AFAA] focus:outline-none focus:border-[#2B6CB0] transition-colors duration-200"
+              class="w-full px-4 py-2.5 text-sm border border-[#E8E6E0] rounded-md bg-cream text-text placeholder:text-[#B0AFAA] focus:outline-none focus:border-blue transition-colors duration-200"
               required
             />
           </div>
           <div>
-            <label class="block text-xs font-medium text-[#5A6478] uppercase tracking-wide mb-1.5">Correo electrónico</label>
+            <label class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Correo electrónico</label>
             <input
               type="email"
               name="email"
               placeholder="correo@ejemplo.com"
-              class="w-full px-4 py-2.5 text-sm border border-[#E8E6E0] rounded-md bg-[#FAFAF8] text-[#1A1A2E] placeholder:text-[#B0AFAA] focus:outline-none focus:border-[#2B6CB0] transition-colors duration-200"
+              class="w-full px-4 py-2.5 text-sm border border-[#E8E6E0] rounded-md bg-cream text-text placeholder:text-[#B0AFAA] focus:outline-none focus:border-blue transition-colors duration-200"
               required
             />
           </div>
           <div>
-            <label class="block text-xs font-medium text-[#5A6478] uppercase tracking-wide mb-1.5">Consulta</label>
+            <label class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Consulta</label>
             <textarea
               name="body"
               placeholder="Describa brevemente su situación legal..."
               rows="4"
-              class="w-full px-4 py-2.5 text-sm border border-[#E8E6E0] rounded-md bg-[#FAFAF8] text-[#1A1A2E] placeholder:text-[#B0AFAA] focus:outline-none focus:border-[#2B6CB0] transition-colors duration-200 resize-none"
+              class="w-full px-4 py-2.5 text-sm border border-[#E8E6E0] rounded-md bg-cream text-text placeholder:text-[#B0AFAA] focus:outline-none focus:border-blue transition-colors duration-200 resize-none"
               required
             ></textarea>
           </div>
           <button
             type="submit"
-            class="w-full py-3 bg-[#2B6CB0] text-white text-sm font-medium rounded-md hover:bg-[#1E4E8C] transition-colors duration-200"
+            class="w-full py-3 bg-blue text-white text-sm font-medium rounded-md hover:bg-blue-dark transition-colors duration-200"
           >
             Enviar consulta
           </button>

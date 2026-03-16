@@ -29,20 +29,64 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Patrón de puntos — clásico en webs legales premium */
-.bg-pattern {
-  background-color: #FAFAF8;
-  background-image: radial-gradient(circle, rgba(43, 108, 176, 0.12) 1px, transparent 1px);
-  background-size: 28px 28px;
+/* ── Nav states ── */
+.nav-transparent {
+  background-color: transparent;
+  border-bottom: 1px solid transparent;
 }
 
-.bg-pattern-surface {
-  background-color: #F3F2EF;
-  background-image: radial-gradient(circle, rgba(43, 108, 176, 0.09) 1px, transparent 1px);
-  background-size: 28px 28px;
+.nav-transparent .nav-link {
+  color: rgba(255, 255, 255, 0.8);
+}
+.nav-transparent .nav-link:hover {
+  color: #ffffff;
+}
+.nav-transparent .nav-subtitle {
+  color: rgba(255, 255, 255, 0.7);
 }
 
-/* Scroll reveal */
+.nav-solid {
+  background-color: rgba(250, 250, 248, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #E8E6E0;
+}
+
+.nav-solid .nav-link {
+  color: var(--color-text-muted);
+}
+.nav-solid .nav-link:hover {
+  color: var(--color-text);
+}
+.nav-solid .nav-subtitle {
+  color: var(--color-text-muted);
+}
+.nav-solid .nav-logo-p {
+  color: var(--color-blue) !important;
+}
+.nav-solid .nav-cta {
+  background-color: var(--color-blue);
+  color: #ffffff;
+  backdrop-filter: none;
+}
+.nav-solid .nav-cta:hover {
+  background-color: var(--color-blue-dark);
+  color: #ffffff;
+}
+
+/* ── Parallax fix for mobile ── */
+@supports (-webkit-touch-callout: none) {
+  .bg-fixed {
+    background-attachment: scroll;
+  }
+}
+
+@media (max-width: 768px) {
+  .bg-fixed {
+    background-attachment: scroll;
+  }
+}
+
+/* ── Scroll reveal ── */
 .reveal {
   opacity: 0;
   transform: translateY(24px);

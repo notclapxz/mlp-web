@@ -8,15 +8,25 @@ const formacion = [
 ];
 ---
 
-<section id="nosotros" class="py-20 lg:py-28 bg-pattern">
-  <div class="max-w-5xl mx-auto px-6">
+<section id="nosotros" class="py-20 lg:py-28 bg-cream">
+  <div class="max-w-6xl mx-auto px-6">
 
     <!-- Header -->
     <div class="reveal text-center mb-14">
-      <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-3">El estudio</p>
-      <h2 class="text-3xl sm:text-4xl font-light text-[#1A1A2E]">
+      <p class="text-xs font-medium tracking-widest text-text-muted uppercase mb-3">El estudio</p>
+      <h2 class="text-3xl sm:text-4xl font-light text-text">
         Trayectoria y <span class="font-medium">formación</span>
       </h2>
+    </div>
+
+    <!-- Foto panorámica de sala de reuniones -->
+    <div class="reveal mb-14 overflow-hidden rounded-xl shadow-lg">
+      <img
+        src="/oficina-reuniones.png"
+        alt="Sala de reuniones del estudio — atención a clientes"
+        class="w-full h-64 sm:h-80 lg:h-96 object-cover hover:scale-105 transition-transform duration-700"
+        loading="lazy"
+      />
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
@@ -25,7 +35,7 @@ const formacion = [
       <div class="reveal lg:col-span-2 flex flex-col items-center lg:items-start gap-6">
         <!-- Foto circular con ring de acento -->
         <div class="relative">
-          <div class="w-48 h-48 lg:w-52 lg:h-52 rounded-full ring-4 ring-[#2B6CB0]/15 ring-offset-4 ring-offset-[#FAFAF8] overflow-hidden shadow-lg">
+          <div class="w-48 h-48 lg:w-52 lg:h-52 rounded-full ring-4 ring-blue/15 ring-offset-4 ring-offset-cream overflow-hidden shadow-lg">
             <img
               src="/dr-rolando.jpg"
               alt="Dr. Rolando Zagret Risco Valera"
@@ -33,28 +43,28 @@ const formacion = [
             />
           </div>
           <!-- Badge CAL -->
-          <div class="absolute -bottom-2 -right-2 bg-[#2B6CB0] text-white text-[10px] font-semibold px-2.5 py-1 rounded-full shadow-md">
+          <div class="absolute -bottom-2 -right-2 bg-blue text-white text-[10px] font-semibold px-2.5 py-1 rounded-full shadow-md">
             CAL N° 35124
           </div>
         </div>
 
         <!-- Identidad debajo de la foto -->
         <div class="text-center lg:text-left">
-          <p class="font-semibold text-[#1A1A2E] text-base leading-tight">Dr. Rolando Zagret<br/>Risco Valera</p>
-          <p class="text-sm text-[#5A6478] mt-1.5">Abogado · San Isidro, Lima</p>
+          <p class="font-semibold text-text text-base leading-tight">Dr. Rolando Zagret<br/>Risco Valera</p>
+          <p class="text-sm text-text-muted mt-1.5">Abogado · San Isidro, Lima</p>
         </div>
       </div>
 
       <!-- Contenido derecho — columna derecha (3/5) -->
       <div class="lg:col-span-3">
 
-        <p class="reveal text-[#5A6478] leading-relaxed mb-8 text-sm">
+        <p class="reveal text-text-muted leading-relaxed mb-8 text-sm">
           Media & Legal Planning Chamber es un estudio jurídico con sede en San Isidro, Lima. Con más de 28 años de ejercicio profesional, brindamos asesoría legal a personas naturales y empresas con un enfoque directo y orientado a resultados.
         </p>
 
         <!-- Formación académica -->
         <div class="reveal reveal-delay-1">
-          <p class="text-xs font-medium tracking-widest text-[#5A6478] uppercase mb-5">Formación académica</p>
+          <p class="text-xs font-medium tracking-widest text-text-muted uppercase mb-5">Formación académica</p>
           <ul class="space-y-5">
             {formacion.map((item, i) => (
               <li class="flex items-start gap-4">
@@ -65,8 +75,8 @@ const formacion = [
                   {String(i + 1).padStart(2, '0')}
                 </div>
                 <div>
-                  <p class="text-sm font-medium text-[#1A1A2E]">{item.titulo}</p>
-                  <p class="text-xs text-[#5A6478] mt-0.5">{item.inst}</p>
+                  <p class="text-sm font-medium text-text">{item.titulo}</p>
+                  <p class="text-xs text-text-muted mt-0.5">{item.inst}</p>
                 </div>
               </li>
             ))}
