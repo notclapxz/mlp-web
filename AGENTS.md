@@ -125,45 +125,33 @@ mlp-web/
 - Stats en Hero: 28+ / 116+ / 5 / 4
 - LinkedIn en Contacto y Footer
 
-### ⚠️ Problema de diseño identificado — NO RESUELTO
-**El Hero se ve vacío.** El fondo con puntos apenas se nota en pantallas Retina (Mac M5). El contenido flota en el centro sin anclas visuales.
+### ✅ Rediseño visual completado (sesión 2026-03-16)
+- Hero con foto de oficina (`hero-oficina.png`) + parallax + overlay oscuro + texto blanco + serif H1
+- Nav transparente sobre hero, se vuelve sólida al scrollear (80px threshold)
+- Servicios con foto de biblioteca a la izquierda + grid de cards
+- Nosotros con foto panorámica de sala de reuniones arriba
+- Contacto con franja visual con foto del despacho + cita
+- Logo MLP siempre tricolor (M=gold, L=green, P=blue) — fix aplicado en Nav y Hero
 
-**Solución acordada para próxima sesión:**
-Reemplazar el Hero actual por un **Hero con imagen de fondo de la oficina** — estilo Estudio Rodrigo (`estudiorodrigo.com`). Texto blanco sobre imagen oscura con overlay semitransparente.
-
-**Referencia de inspiración analizada:** `https://www.estudiorodrigo.com/`
-- Hero con foto ambiente de sala de reuniones/despacho oscuro y elegante
-- Título en blanco sobre imagen con overlay
-- Tipografía serif para títulos da autoridad legal
-- Fondo blanco puro para el resto del contenido (sin patrones)
-
-**Lo que se necesita para implementar:**
-- ⏳ **Foto de la oficina** de Canaval y Moreyra 290 — Sebastian la va a sacar cuando pueda
-- Mientras no haya foto real, se puede usar una de Unsplash temporalmente (sala de reuniones oscura)
-- Guardar la foto como `public/hero-oficina.jpg`
-
-**Instrucciones para cuando llegue la foto:**
-1. Copiar imagen a `public/hero-oficina.jpg`
-2. En `Hero.astro`: cambiar `<section>` a tener `background-image: url('/hero-oficina.jpg')`
-3. Agregar overlay oscuro semitransparente (`bg-black/50` o similar)
-4. Cambiar texto a blanco (`text-white`)
-5. Considerar cambiar fuente del H1 a serif (Georgia) para más autoridad
-
----
-
-## Pendientes para próxima sesión
-
-### 🔴 Bloqueado esperando assets
+### 🔴 Bloqueado esperando assets del Doctor
 | Asset | Dónde guardar | Para qué |
 |-------|--------------|----------|
-| **Foto de la oficina** | `public/hero-oficina.jpg` | Fondo del Hero — el cambio más importante |
+| **Foto corporativa** (headshot profesional) | `public/dr-rolando.jpg` (reemplaza la actual) | Sección Nosotros — foto actual es baja calidad |
+| **5 fotos/escaneos de diplomas** | `public/diplomas/` | Rediseñar formación académica como catálogo de certificados |
 | **Logo SVG** | `public/favicon.svg` | Favicon + reemplazar texto CSS |
 
 ### 🟡 Sin bloqueo — se puede hacer ahora
 1. **Crear repo GitHub** → `github.com/notclapxz/mlp-web`
 2. **Conectar Cloudflare Pages** y configurar DNS en GoDaddy
 3. **Mejorar formulario** — reemplazar `mailto:` por Web3Forms o Formspree (gratis, sin backend)
-4. **Tipografía serif** para H1 del Hero — da más autoridad sin necesitar foto
+4. **Agregar .gitignore** — excluir `*-check.png` y `public/fotos-oficina/`
+
+### 📐 Decisión de diseño pendiente — Catálogo de certificados
+Cuando lleguen las fotos de diplomas, reemplazar la lista numerada de formación académica por un **carrusel/grid de tarjetas** con:
+- Foto real del diploma/certificado
+- Título + institución + año debajo
+- Lightbox para ver en grande
+- CSS scroll-snap para carrusel, sin librerías JS
 
 ---
 
@@ -180,19 +168,38 @@ Recomendación: **Web3Forms** — más fácil, solo agregar `action="https://api
 
 ---
 
-## Deploy (pendiente)
+## Deploy — ✅ CONFIGURADO
 
-### Situación actual del dominio
-- `mlpperu.com` en **GoDaddy** — sin SSL, apunta a web vieja
-- `agenda.mlpperu.com` → Vercel (Agendai del Dr. Rolando) — **INTOCABLE**
+### Infraestructura actual
+- **GitHub**: https://github.com/notclapxz/mlp-web (public)
+- **Vercel**: proyecto `mlp-web` en team `sevas-projects-fd0ea484`
+- **URL Vercel**: https://mlp-web.vercel.app
+- **Dominio**: `mlpperu.com` → DNS A record apunta a `76.76.21.21` (Vercel)
+- **SSL**: automático via Vercel
+- **Deploy**: automático — `git push origin main` deploya a producción
 
-### Plan
-1. Crear repo GitHub: `github.com/notclapxz/mlp-web`
-2. Conectar a Cloudflare Pages
-3. En GoDaddy: agregar CNAME `mlpperu.com → cname.pages.dev` O mover nameservers a Cloudflare
-4. SSL automático con Cloudflare
+### DNS en GoDaddy (estado actual)
+| Tipo | Nombre | Apunta a | Estado |
+|------|--------|----------|--------|
+| **A** | `@` | `76.76.21.21` | ✅ Vercel — landing mlp-web |
+| **A** | `agenda` | `76.76.21.21` | ✅ Vercel — agenda-legal — **INTOCABLE** |
+| **A** | `mail` | `50.63.177.14` | ✅ GoDaddy hosting — email — **INTOCABLE** |
+| **MX** | `@` | `mail.mlpperu.com` | ✅ Email — **INTOCABLE** |
+| **CNAME** | `www` | `mlpperu.com` | ✅ Redirige al raíz |
 
-> ⚠️ Al mover DNS de GoDaddy, verificar que `agenda.mlpperu.com` siga apuntando a Vercel. No tocar ese subdominio.
+### Email
+- `consultas@mlpperu.com` corre en **cPanel del Web Hosting Economy de GoDaddy** (NO en Titan)
+- MX apunta a `mail.mlpperu.com` → `50.63.177.14` (IP del hosting)
+- **NUNCA tocar registros MX, TXT (SPF), SRV, ni el A record de `mail`**
+- Si se cancela el hosting, el email SE CAE
+- El Doctor dijo textualmente: **no tocar los correos**
+
+### GoDaddy — productos activos
+| Producto | Necesario | Nota |
+|----------|-----------|------|
+| Dominio `mlpperu.com` | ✅ Sí | ~$20/año |
+| Web Hosting Economy | ✅ Sí (por email) | Renueva 4/14/2026, ~$6-8/mes |
+| Titan Email (4 cuentas) | ❌ Sin usar | Disponible si se quisiera migrar |
 
 ---
 
