@@ -37,6 +37,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <!-- Page reveal overlay -->
+    <div id="page-overlay" class="fixed inset-0 z-[100] bg-black/90 pointer-events-none" style="opacity: 1; transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);"></div>
+
     <slot />
 
     <!-- Botón flotante WhatsApp -->
@@ -54,6 +57,17 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     </a>
 
     <script>
+      // Page reveal — fade from dark overlay
+      const overlay = document.getElementById('page-overlay');
+      if (overlay) {
+        window.addEventListener('load', () => {
+          requestAnimationFrame(() => {
+            overlay.style.opacity = '0';
+            overlay.addEventListener('transitionend', () => overlay.remove(), { once: true });
+          });
+        });
+      }
+
       // Scroll reveal — Intersection Observer
       const observer = new IntersectionObserver(
         (entries) => {
