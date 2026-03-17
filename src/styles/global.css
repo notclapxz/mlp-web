@@ -60,9 +60,7 @@ body {
 .nav-solid .nav-subtitle {
   color: var(--color-text-muted);
 }
-.nav-solid .nav-logo-p {
-  color: var(--color-blue) !important;
-}
+
 .nav-solid .nav-cta {
   background-color: var(--color-blue);
   color: #ffffff;
