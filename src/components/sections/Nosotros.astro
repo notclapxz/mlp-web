@@ -122,12 +122,18 @@ const credenciales = [
 
         <!-- Formación académica — carrusel compacto -->
         <div class="reveal reveal-delay-1">
-          <!-- Header con flechas de navegación -->
+          <!-- Header con flechas + autoplay -->
           <div class="flex items-center justify-between mb-4">
             <p class="text-xs font-medium tracking-widest text-text-muted uppercase">Formación académica</p>
             <div class="flex gap-1">
               <button id="cert-prev" aria-label="Anterior" class="cert-nav-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button id="cert-play" aria-label="Pausar carrusel" class="cert-nav-btn cert-play-btn" title="Pausar">
+                <!-- Ícono pause (estado inicial: playing) -->
+                <svg id="cert-icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+                <!-- Ícono play (oculto inicialmente) -->
+                <svg id="cert-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
               </button>
               <button id="cert-next" aria-label="Siguiente" class="cert-nav-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -295,13 +301,66 @@ const credenciales = [
 
 <script>
   // ── Carrusel ──
-  const scroll = document.getElementById('cert-scroll');
-  const prev = document.getElementById('cert-prev');
-  const next = document.getElementById('cert-next');
-  const STEP = 148;
+  const scroll    = document.getElementById('cert-scroll') as HTMLElement;
+  const prev      = document.getElementById('cert-prev') as HTMLElement;
+  const next      = document.getElementById('cert-next') as HTMLElement;
+  const playBtn   = document.getElementById('cert-play') as HTMLElement;
+  const iconPause = document.getElementById('cert-icon-pause') as HTMLElement;
+  const iconPlay  = document.getElementById('cert-icon-play') as HTMLElement;
+  const STEP      = 148;
+  const INTERVAL  = 2200; // ms entre cada avance
 
-  prev?.addEventListener('click', () => scroll?.scrollBy({ left: -STEP, behavior: 'smooth' }));
-  next?.addEventListener('click', () => scroll?.scrollBy({ left: STEP, behavior: 'smooth' }));
+  let playing = true;
+  let timer: ReturnType<typeof setInterval>;
+
+  function advance() {
+    if (!scroll) return;
+    const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+    if (scroll.scrollLeft >= maxScroll - 4) {
+      // llegó al final → vuelve al inicio suavemente
+      scroll.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      scroll.scrollBy({ left: STEP, behavior: 'smooth' });
+    }
+  }
+
+  function startAutoplay() {
+    timer = setInterval(advance, INTERVAL);
+    playing = true;
+    iconPause.style.display = '';
+    iconPlay.style.display  = 'none';
+    playBtn.setAttribute('aria-label', 'Pausar carrusel');
+    playBtn.setAttribute('title', 'Pausar');
+  }
+
+  function stopAutoplay() {
+    clearInterval(timer);
+    playing = false;
+    iconPause.style.display = 'none';
+    iconPlay.style.display  = '';
+    playBtn.setAttribute('aria-label', 'Reanudar carrusel');
+    playBtn.setAttribute('title', 'Reanudar');
+  }
+
+  // Botón play/pause
+  playBtn?.addEventListener('click', () => playing ? stopAutoplay() : startAutoplay());
+
+  // Flechas manuales → pausan el autoplay
+  prev?.addEventListener('click', () => {
+    stopAutoplay();
+    scroll?.scrollBy({ left: -STEP, behavior: 'smooth' });
+  });
+  next?.addEventListener('click', () => {
+    stopAutoplay();
+    scroll?.scrollBy({ left: STEP, behavior: 'smooth' });
+  });
+
+  // Pausar al pasar el mouse encima
+  scroll?.addEventListener('mouseenter', () => { if (playing) stopAutoplay(); });
+  scroll?.addEventListener('mouseleave', () => { if (!playing) startAutoplay(); });
+
+  // Arrancar
+  startAutoplay();
 
   // ── Modal PDF ──
   const modal    = document.getElementById('cert-modal') as HTMLElement;
