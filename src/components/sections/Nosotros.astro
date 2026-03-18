@@ -122,10 +122,21 @@ const credenciales = [
 
         <!-- Formación académica — carrusel compacto -->
         <div class="reveal reveal-delay-1">
-          <p class="text-xs font-medium tracking-widest text-text-muted uppercase mb-4">Formación académica</p>
+          <!-- Header con flechas de navegación -->
+          <div class="flex items-center justify-between mb-4">
+            <p class="text-xs font-medium tracking-widest text-text-muted uppercase">Formación académica</p>
+            <div class="flex gap-1">
+              <button id="cert-prev" aria-label="Anterior" class="cert-nav-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+              </button>
+              <button id="cert-next" aria-label="Siguiente" class="cert-nav-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
 
           <!-- Scroll horizontal con snap -->
-          <div class="flex gap-3 overflow-x-auto pb-3 cert-scroll">
+          <div id="cert-scroll" class="flex gap-3 overflow-x-auto pb-3 cert-scroll">
             {credenciales.map((cred) => (
               <a
                 href={cred.pdf}
@@ -179,4 +190,36 @@ const credenciales = [
     background-color: #d1d5db;
     border-radius: 9999px;
   }
+  .cert-nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    color: #5A6478;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .cert-nav-btn:hover {
+    background: #f8f8f6;
+    border-color: #2B6CB0;
+    color: #2B6CB0;
+  }
 </style>
+
+<script>
+  const scroll = document.getElementById('cert-scroll');
+  const prev = document.getElementById('cert-prev');
+  const next = document.getElementById('cert-next');
+  const STEP = 148; // ancho tarjeta (128) + gap (12) + un poco de margen
+
+  prev?.addEventListener('click', () => {
+    scroll?.scrollBy({ left: -STEP, behavior: 'smooth' });
+  });
+  next?.addEventListener('click', () => {
+    scroll?.scrollBy({ left: STEP, behavior: 'smooth' });
+  });
+</script>
