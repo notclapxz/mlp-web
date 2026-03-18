@@ -1,19 +1,23 @@
 ---
 ---
 
-<section id="inicio" class="hero-section relative min-h-screen flex items-center justify-center pt-16 overflow-hidden">
-  <!-- Imagen de fondo con parallax -->
-  <div
-    class="absolute inset-0 bg-cover bg-center bg-fixed"
-    style="background-image: url('/hero-oficina.jpeg')"
-  >
-  </div>
+<section id="inicio" class="hero-section relative min-h-screen flex items-center justify-center pt-16 overflow-hidden" style="background-color: #1A1A2E">
+  <!-- Imagen de fondo — fallback oscuro si no carga -->
+  <img
+    src="/hero-oficina.jpeg"
+    alt=""
+    aria-hidden="true"
+    fetchpriority="high"
+    class="absolute inset-0 w-full h-full object-cover"
+    style="z-index:0"
+  />
+  
 
   <!-- Overlay oscuro -->
-  <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" style="z-index:1"></div>
 
   <!-- Contenido -->
-  <div class="relative z-10 max-w-5xl mx-auto px-6 py-20 text-center">
+  <div class="relative max-w-5xl mx-auto px-6 py-20 text-center" style="z-index:2">
 
     <!-- Logo MLP -->
     <div class="mb-10 flex justify-center">
