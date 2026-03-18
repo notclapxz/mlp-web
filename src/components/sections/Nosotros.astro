@@ -1,4 +1,69 @@
 ---
+const credenciales = [
+  {
+    id: '01',
+    titulo: 'Título de Abogado',
+    inst: 'PUCP',
+    year: '1997',
+    preview: '/certificados/previews/01-titulo-abogado-pucp.png',
+    pdf: '/certificados/Título de Abogado PUCP 31.07.2002.pdf',
+    color: '#2B6CB0',
+  },
+  {
+    id: '02',
+    titulo: 'Maestría en Ciencias Penales',
+    inst: 'UNMSM',
+    year: '2006',
+    preview: '/certificados/previews/02-maestria-derecho-penal.png',
+    pdf: '/certificados/Constancia de Estudios de Maestría en Derecho Penal.pdf',
+    color: '#1A1A2E',
+  },
+  {
+    id: '03',
+    titulo: 'Master en Gerencia Pública',
+    inst: 'EUCIM Business School',
+    year: '2018',
+    preview: '/certificados/previews/03-master-gerencia-publica.png',
+    pdf: '/certificados/Título Propio Master en Gerencia Pública Apostillado.pdf',
+    color: '#3A7D44',
+  },
+  {
+    id: '04',
+    titulo: 'Máster en Alta Dirección Empresarial',
+    inst: 'European Open Business School',
+    year: '2021',
+    preview: '/certificados/previews/04-master-alta-direccion.png',
+    pdf: '/certificados/Máster Alta Dirección Empresarial Universidad de Álcala.pdf',
+    color: '#E8B84B',
+  },
+  {
+    id: '05',
+    titulo: 'Máster en Política Criminal',
+    inst: 'Univ. de Salamanca',
+    year: '2025',
+    preview: '/certificados/previews/05-master-politica-criminal.png',
+    pdf: '/certificados/Diploma Máster en Política Criminal.pdf',
+    color: '#2B6CB0',
+  },
+  {
+    id: '06',
+    titulo: 'Diploma en Compliance Corporativo',
+    inst: 'Instituto para la Calidad — PUCP',
+    year: '2021',
+    preview: '/certificados/previews/06-diploma-compliance.png',
+    pdf: '/certificados/Diploma Compliance Corporativo y Auditoría de Riesgos.pdf',
+    color: '#3A7D44',
+  },
+  {
+    id: '07',
+    titulo: 'Primer Puesto — Compliance y Auditoría',
+    inst: 'Instituto para la Calidad — PUCP',
+    year: '2021',
+    preview: '/certificados/previews/07-constancia-primer-puesto.png',
+    pdf: '/certificados/Constancia Primer Puesto Compliance Corporativo y Auditoría de Riesgos.pdf',
+    color: '#E8B84B',
+  },
+];
 ---
 
 <section id="nosotros" class="py-20 lg:py-28 bg-cream">
@@ -55,12 +120,63 @@
           Risco Valera Abogados &amp; Consultores es un estudio jurídico con sede en San Isidro, Lima. Con más de 20 años de ejercicio profesional y más de 15 años bajo la marca MLP, brindamos asesoría legal a personas naturales y empresas con un enfoque directo y orientado a resultados.
         </p>
 
-        <!-- Formación: referencia a sección siguiente -->
-        <p class="reveal reveal-delay-1 text-xs text-text-muted mt-2">
-          Ver credenciales y certificaciones académicas ↓
-        </p>
+        <!-- Formación académica — carrusel compacto -->
+        <div class="reveal reveal-delay-1">
+          <p class="text-xs font-medium tracking-widest text-text-muted uppercase mb-4">Formación académica</p>
+
+          <!-- Scroll horizontal con snap -->
+          <div class="flex gap-3 overflow-x-auto pb-3 cert-scroll">
+            {credenciales.map((cred) => (
+              <a
+                href={cred.pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="group flex-none w-32 bg-white rounded-lg overflow-hidden shadow-sm border border-black/5 hover:shadow-md transition-shadow duration-200"
+                title={`${cred.titulo} — ${cred.inst}`}
+              >
+                <!-- Preview imagen -->
+                <div class="relative overflow-hidden h-[4.5rem] bg-gray-50">
+                  <img
+                    src={cred.preview}
+                    alt={cred.titulo}
+                    class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+  
+                </div>
+
+                <!-- Info -->
+                <div class="p-2">
+                  <p class="text-[10px] font-medium text-text leading-tight line-clamp-2">{cred.titulo}</p>
+                  <p class="text-[9px] text-text-muted mt-0.5 leading-tight">{cred.year} · {cred.inst}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
 
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .cert-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db transparent;
+    scroll-snap-type: x mandatory;
+  }
+  .cert-scroll > a {
+    scroll-snap-align: start;
+  }
+  .cert-scroll::-webkit-scrollbar {
+    height: 4px;
+  }
+  .cert-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .cert-scroll::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 9999px;
+  }
+</style>
