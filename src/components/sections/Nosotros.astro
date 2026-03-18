@@ -138,11 +138,10 @@ const credenciales = [
           <!-- Scroll horizontal con snap -->
           <div id="cert-scroll" class="flex gap-3 overflow-x-auto pb-3 cert-scroll">
             {credenciales.map((cred) => (
-              <a
-                href={cred.pdf}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="group flex-none w-32 bg-white rounded-lg overflow-hidden shadow-sm border border-black/5 hover:shadow-md transition-shadow duration-200"
+              <button
+                class="cert-card group flex-none w-32 bg-white rounded-lg overflow-hidden shadow-sm border border-black/5 hover:shadow-md transition-shadow duration-200 text-left cursor-pointer"
+                data-pdf={cred.pdf}
+                data-titulo={cred.titulo}
                 title={`${cred.titulo} — ${cred.inst}`}
               >
                 <!-- Preview imagen -->
@@ -153,15 +152,13 @@ const credenciales = [
                     class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
                   />
-  
                 </div>
-
                 <!-- Info -->
                 <div class="p-2">
                   <p class="text-[10px] font-medium text-text leading-tight line-clamp-2">{cred.titulo}</p>
                   <p class="text-[9px] text-text-muted mt-0.5 leading-tight">{cred.year} · {cred.inst}</p>
                 </div>
-              </a>
+              </button>
             ))}
           </div>
         </div>
@@ -170,6 +167,23 @@ const credenciales = [
     </div>
   </div>
 </section>
+
+<!-- Modal PDF viewer -->
+<div id="cert-modal" class="cert-modal-backdrop" aria-modal="true" role="dialog" aria-label="Ver certificado">
+  <div class="cert-modal-box">
+    <!-- Header -->
+    <div class="cert-modal-header">
+      <p id="cert-modal-title" class="cert-modal-title"></p>
+      <button id="cert-modal-close" aria-label="Cerrar" class="cert-modal-close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <!-- iframe PDF -->
+    <div class="cert-modal-body">
+      <iframe id="cert-modal-iframe" src="" title="Certificado" class="cert-modal-iframe" oncontextmenu="return false;"></iframe>
+    </div>
+  </div>
+</div>
 
 <style>
   .cert-scroll {
@@ -208,18 +222,125 @@ const credenciales = [
     border-color: #2B6CB0;
     color: #2B6CB0;
   }
+
+  /* ── Modal PDF ── */
+  .cert-modal-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+  .cert-modal-backdrop.open {
+    display: flex;
+  }
+  .cert-modal-box {
+    background: white;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 860px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+  }
+  .cert-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-bottom: 1px solid #e8e6e0;
+    flex-shrink: 0;
+  }
+  .cert-modal-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1A1A2E;
+  }
+  .cert-modal-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: #5A6478;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .cert-modal-close:hover {
+    background: #f3f2ef;
+    color: #1A1A2E;
+  }
+  .cert-modal-body {
+    flex: 1;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .cert-modal-iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 70vh;
+    border: none;
+    display: block;
+  }
 </style>
 
 <script>
+  // ── Carrusel ──
   const scroll = document.getElementById('cert-scroll');
   const prev = document.getElementById('cert-prev');
   const next = document.getElementById('cert-next');
-  const STEP = 148; // ancho tarjeta (128) + gap (12) + un poco de margen
+  const STEP = 148;
 
-  prev?.addEventListener('click', () => {
-    scroll?.scrollBy({ left: -STEP, behavior: 'smooth' });
+  prev?.addEventListener('click', () => scroll?.scrollBy({ left: -STEP, behavior: 'smooth' }));
+  next?.addEventListener('click', () => scroll?.scrollBy({ left: STEP, behavior: 'smooth' }));
+
+  // ── Modal PDF ──
+  const modal    = document.getElementById('cert-modal') as HTMLElement;
+  const iframe   = document.getElementById('cert-modal-iframe') as HTMLIFrameElement;
+  const modalTitle = document.getElementById('cert-modal-title') as HTMLElement;
+  const closeBtn = document.getElementById('cert-modal-close') as HTMLElement;
+
+  function openModal(pdf: string, titulo: string) {
+    iframe.src = pdf + '#toolbar=0&navpanes=0&scrollbar=0';
+    modalTitle.textContent = titulo;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden'; // evita scroll del fondo
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    iframe.src = ''; // libera el PDF de memoria
+    document.body.style.overflow = '';
+  }
+
+  // Abrir al hacer click en tarjeta
+  document.querySelectorAll('.cert-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const pdf    = (card as HTMLElement).dataset.pdf ?? '';
+      const titulo = (card as HTMLElement).dataset.titulo ?? '';
+      openModal(pdf, titulo);
+    });
   });
-  next?.addEventListener('click', () => {
-    scroll?.scrollBy({ left: STEP, behavior: 'smooth' });
+
+  // Cerrar con botón X
+  closeBtn?.addEventListener('click', closeModal);
+
+  // Cerrar al hacer click en el backdrop (fuera del box)
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Cerrar con Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
 </script>
