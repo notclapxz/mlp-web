@@ -120,52 +120,75 @@ const credenciales = [
           Risco Valera Abogados &amp; Consultores es un estudio jurídico con sede en San Isidro, Lima. Con más de 20 años de ejercicio profesional y más de 15 años bajo la marca MLP, brindamos asesoría legal a personas naturales y empresas con un enfoque directo y orientado a resultados.
         </p>
 
-        <!-- Formación académica — carrusel compacto -->
+        <!-- Formación académica — ticker infinito -->
         <div class="reveal reveal-delay-1">
-          <!-- Header con flechas + autoplay -->
+          <!-- Header: label + botón pause/play -->
           <div class="flex items-center justify-between mb-4">
             <p class="text-xs font-medium tracking-widest text-text-muted uppercase">Formación académica</p>
-            <div class="flex gap-1">
-              <button id="cert-prev" aria-label="Anterior" class="cert-nav-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button id="cert-play" aria-label="Pausar carrusel" class="cert-nav-btn cert-play-btn" title="Pausar">
-                <!-- Ícono pause (estado inicial: playing) -->
-                <svg id="cert-icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
-                <!-- Ícono play (oculto inicialmente) -->
-                <svg id="cert-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style="display:none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              </button>
-              <button id="cert-next" aria-label="Siguiente" class="cert-nav-btn">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-            </div>
+            <button id="cert-play" class="cert-play-btn" aria-label="Pausar carrusel" title="Pausar">
+              <!-- Ícono pause (visible cuando corre) -->
+              <svg id="cert-icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+              </svg>
+              <!-- Ícono play (visible cuando está pausado) -->
+              <svg id="cert-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none">
+                <polygon points="5 3 19 12 5 21 5 3"/>
+              </svg>
+            </button>
           </div>
 
-          <!-- Scroll horizontal con snap -->
-          <div id="cert-scroll" class="flex gap-3 overflow-x-auto pb-3 cert-scroll">
-            {credenciales.map((cred) => (
-              <button
-                class="cert-card group flex-none w-32 bg-white rounded-lg overflow-hidden shadow-sm border border-black/5 hover:shadow-md transition-shadow duration-200 text-left cursor-pointer"
-                data-pdf={cred.pdf}
-                data-titulo={cred.titulo}
-                title={`${cred.titulo} — ${cred.inst}`}
-              >
-                <!-- Preview imagen -->
-                <div class="relative overflow-hidden h-[4.5rem] bg-gray-50">
-                  <img
-                    src={cred.preview}
-                    alt={cred.titulo}
-                    class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
-                    loading="lazy"
-                  />
-                </div>
-                <!-- Info -->
-                <div class="p-2">
-                  <p class="text-[10px] font-medium text-text leading-tight line-clamp-2">{cred.titulo}</p>
-                  <p class="text-[9px] text-text-muted mt-0.5 leading-tight">{cred.year} · {cred.inst}</p>
-                </div>
-              </button>
-            ))}
+          <!-- Ticker wrapper: overflow hidden + mask fade en bordes -->
+          <div class="cert-ticker-wrapper">
+            <div class="cert-ticker-track" id="cert-track">
+
+              <!-- Set 1: cards reales (accesibles, tabulables) -->
+              {credenciales.map((cred) => (
+                <button
+                  class="cert-card group flex-none w-32 bg-white rounded-lg overflow-hidden shadow-sm border border-black/5 hover:shadow-md transition-shadow duration-200 text-left cursor-pointer"
+                  data-pdf={cred.pdf}
+                  data-titulo={cred.titulo}
+                  title={`${cred.titulo} — ${cred.inst}`}
+                >
+                  <div class="relative overflow-hidden h-[4.5rem] bg-gray-50">
+                    <img
+                      src={cred.preview}
+                      alt={cred.titulo}
+                      class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="p-2">
+                    <p class="text-[10px] font-medium text-text leading-tight line-clamp-2">{cred.titulo}</p>
+                    <p class="text-[9px] text-text-muted mt-0.5 leading-tight">{cred.year} · {cred.inst}</p>
+                  </div>
+                </button>
+              ))}
+
+              <!-- Set 2: clones para el loop seamless (aria-hidden, no tabulables) -->
+              {credenciales.map((cred) => (
+                <button
+                  class="cert-card group flex-none w-32 bg-white rounded-lg overflow-hidden shadow-sm border border-black/5 text-left cursor-pointer"
+                  data-pdf={cred.pdf}
+                  data-titulo={cred.titulo}
+                  aria-hidden="true"
+                  tabindex="-1"
+                >
+                  <div class="relative overflow-hidden h-[4.5rem] bg-gray-50">
+                    <img
+                      src={cred.preview}
+                      alt=""
+                      class="w-full h-full object-cover object-top"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="p-2">
+                    <p class="text-[10px] font-medium text-text leading-tight line-clamp-2">{cred.titulo}</p>
+                    <p class="text-[9px] text-text-muted mt-0.5 leading-tight">{cred.year} · {cred.inst}</p>
+                  </div>
+                </button>
+              ))}
+
+            </div>
           </div>
         </div>
 
@@ -192,25 +215,35 @@ const credenciales = [
 </div>
 
 <style>
-  .cert-scroll {
-    scrollbar-width: thin;
-    scrollbar-color: #d1d5db transparent;
-    scroll-snap-type: x mandatory;
+  /* ── Ticker: wrapper con overflow hidden + fade en bordes ── */
+  .cert-ticker-wrapper {
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   }
-  .cert-scroll > a {
-    scroll-snap-align: start;
+
+  /* ── Track: flex en línea, animación CSS pura ── */
+  .cert-ticker-track {
+    display: flex;
+    gap: 0.75rem;
+    width: max-content;
+    padding: 0.25rem 0 0.75rem;
+    animation: cert-scroll 28s linear infinite;
   }
-  .cert-scroll::-webkit-scrollbar {
-    height: 4px;
+
+  /* ── Hover pause: CSS — no necesita JS ── */
+  .cert-ticker-wrapper:hover .cert-ticker-track {
+    animation-play-state: paused;
   }
-  .cert-scroll::-webkit-scrollbar-track {
-    background: transparent;
+
+  /* ── Keyframe: mueve exactamente el 50% (= 1 set de 7 cards) ── */
+  @keyframes cert-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
   }
-  .cert-scroll::-webkit-scrollbar-thumb {
-    background-color: #d1d5db;
-    border-radius: 9999px;
-  }
-  .cert-nav-btn {
+
+  /* ── Botón play/pause ── */
+  .cert-play-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -222,11 +255,28 @@ const credenciales = [
     color: #5A6478;
     cursor: pointer;
     transition: all 0.15s ease;
+    flex-shrink: 0;
   }
-  .cert-nav-btn:hover {
+  .cert-play-btn:hover {
     background: #f8f8f6;
     border-color: #2B6CB0;
     color: #2B6CB0;
+  }
+
+  /* ── Reduced motion: detiene la animación, oculta los clones ── */
+  @media (prefers-reduced-motion: reduce) {
+    .cert-ticker-track {
+      animation: none;
+      flex-wrap: wrap;
+      width: auto;
+    }
+    .cert-card[aria-hidden="true"] {
+      display: none;
+    }
+    .cert-ticker-wrapper {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
   }
 
   /* ── Modal PDF ── */
@@ -300,73 +350,30 @@ const credenciales = [
 </style>
 
 <script>
-  // ── Carrusel ──
-  const scroll    = document.getElementById('cert-scroll') as HTMLElement;
-  const prev      = document.getElementById('cert-prev') as HTMLElement;
-  const next      = document.getElementById('cert-next') as HTMLElement;
-  const playBtn   = document.getElementById('cert-play') as HTMLElement;
+  // ── Ticker: botón play/pause ──
+  // El hover pause lo maneja CSS (.cert-ticker-wrapper:hover .cert-ticker-track)
+  // Este script solo gestiona el botón — inline style toma prioridad sobre :hover CSS
+  const track     = document.getElementById('cert-track') as HTMLElement;
+  const playBtn   = document.getElementById('cert-play') as HTMLButtonElement;
   const iconPause = document.getElementById('cert-icon-pause') as HTMLElement;
   const iconPlay  = document.getElementById('cert-icon-play') as HTMLElement;
-  const STEP      = 148;
-  const INTERVAL  = 2200; // ms entre cada avance
 
-  let playing = true;
-  let timer: ReturnType<typeof setInterval>;
+  let paused = false;
 
-  function advance() {
-    if (!scroll) return;
-    const maxScroll = scroll.scrollWidth - scroll.clientWidth;
-    if (scroll.scrollLeft >= maxScroll - 4) {
-      // llegó al final → vuelve al inicio suavemente
-      scroll.scrollTo({ left: 0, behavior: 'smooth' });
-    } else {
-      scroll.scrollBy({ left: STEP, behavior: 'smooth' });
-    }
-  }
-
-  function startAutoplay() {
-    timer = setInterval(advance, INTERVAL);
-    playing = true;
-    iconPause.style.display = '';
-    iconPlay.style.display  = 'none';
-    playBtn.setAttribute('aria-label', 'Pausar carrusel');
-    playBtn.setAttribute('title', 'Pausar');
-  }
-
-  function stopAutoplay() {
-    clearInterval(timer);
-    playing = false;
-    iconPause.style.display = 'none';
-    iconPlay.style.display  = '';
-    playBtn.setAttribute('aria-label', 'Reanudar carrusel');
-    playBtn.setAttribute('title', 'Reanudar');
-  }
-
-  // Botón play/pause
-  playBtn?.addEventListener('click', () => playing ? stopAutoplay() : startAutoplay());
-
-  // Flechas manuales → pausan el autoplay
-  prev?.addEventListener('click', () => {
-    stopAutoplay();
-    scroll?.scrollBy({ left: -STEP, behavior: 'smooth' });
+  playBtn?.addEventListener('click', () => {
+    paused = !paused;
+    track.style.animationPlayState = paused ? 'paused' : 'running';
+    iconPause.style.display = paused ? 'none' : '';
+    iconPlay.style.display  = paused ? '' : 'none';
+    playBtn.setAttribute('aria-label', paused ? 'Reanudar carrusel' : 'Pausar carrusel');
+    playBtn.setAttribute('title', paused ? 'Reanudar' : 'Pausar');
   });
-  next?.addEventListener('click', () => {
-    stopAutoplay();
-    scroll?.scrollBy({ left: STEP, behavior: 'smooth' });
-  });
-
-  // Pausar al pasar el mouse encima
-  scroll?.addEventListener('mouseenter', () => { if (playing) stopAutoplay(); });
-  scroll?.addEventListener('mouseleave', () => { if (!playing) startAutoplay(); });
-
-  // Arrancar
-  startAutoplay();
 
   // ── Modal PDF ──
-  const modal    = document.getElementById('cert-modal') as HTMLElement;
-  const iframe   = document.getElementById('cert-modal-iframe') as HTMLIFrameElement;
+  const modal      = document.getElementById('cert-modal') as HTMLElement;
+  const iframe     = document.getElementById('cert-modal-iframe') as HTMLIFrameElement;
   const modalTitle = document.getElementById('cert-modal-title') as HTMLElement;
-  const closeBtn = document.getElementById('cert-modal-close') as HTMLElement;
+  const closeBtn   = document.getElementById('cert-modal-close') as HTMLElement;
 
   function openModal(pdf: string, titulo: string) {
     iframe.src = pdf + '#toolbar=0&navpanes=0&scrollbar=0';
@@ -381,7 +388,7 @@ const credenciales = [
     document.body.style.overflow = '';
   }
 
-  // Abrir al hacer click en tarjeta
+  // Abrir al hacer click en tarjeta (captura ambos sets via class selector)
   document.querySelectorAll('.cert-card').forEach((card) => {
     card.addEventListener('click', () => {
       const pdf    = (card as HTMLElement).dataset.pdf ?? '';
