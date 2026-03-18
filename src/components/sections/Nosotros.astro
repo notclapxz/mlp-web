@@ -231,10 +231,6 @@ const credenciales = [
     animation: cert-scroll 28s linear infinite;
   }
 
-  /* ── Hover pause: CSS — no necesita JS ── */
-  .cert-ticker-wrapper:hover .cert-ticker-track {
-    animation-play-state: paused;
-  }
 
   /* ── Keyframe: mueve exactamente el 50% (= 1 set de 7 cards) ── */
   @keyframes cert-scroll {
@@ -351,8 +347,7 @@ const credenciales = [
 
 <script>
   // ── Ticker: botón play/pause ──
-  // El hover pause lo maneja CSS (.cert-ticker-wrapper:hover .cert-ticker-track)
-  // Este script solo gestiona el botón — inline style toma prioridad sobre :hover CSS
+  // Solo el botón controla pause — hover NO pausa
   const track     = document.getElementById('cert-track') as HTMLElement;
   const playBtn   = document.getElementById('cert-play') as HTMLButtonElement;
   const iconPause = document.getElementById('cert-icon-pause') as HTMLElement;
