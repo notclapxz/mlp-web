@@ -46,7 +46,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap&font-display=swap" rel="stylesheet" />
   </head>
   <body>
     <!-- Page reveal overlay -->
@@ -70,9 +70,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <script>
       // Page reveal — fade from dark overlay
+      // DOMContentLoaded es mucho más rápido que 'load' (no espera imágenes)
       const overlay = document.getElementById('page-overlay');
       if (overlay) {
-        window.addEventListener('load', () => {
+        document.addEventListener('DOMContentLoaded', () => {
           requestAnimationFrame(() => {
             overlay.style.opacity = '0';
             overlay.addEventListener('transitionend', () => overlay.remove(), { once: true });

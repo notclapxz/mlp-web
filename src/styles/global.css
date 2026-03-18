@@ -71,17 +71,10 @@ body {
   color: #ffffff;
 }
 
-/* ── Parallax fix for mobile ── */
-@supports (-webkit-touch-callout: none) {
-  .bg-fixed {
-    background-attachment: scroll;
-  }
-}
-
-@media (max-width: 768px) {
-  .bg-fixed {
-    background-attachment: scroll;
-  }
+/* ── Parallax — bg-fixed causa repaint en cada scroll, mejor scroll en todos ── */
+.bg-fixed {
+  background-attachment: scroll;
+  will-change: auto;
 }
 
 /* ── Scroll reveal ── */
@@ -100,6 +93,7 @@ body {
 .reveal-delay-2 { transition-delay: 0.2s; }
 .reveal-delay-3 { transition-delay: 0.3s; }
 .reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal {
