@@ -9,6 +9,8 @@
   --color-surface: #F3F2EF;
   --color-text: #1A1A2E;
   --color-text-muted: #5A6478;
+  --color-stat-green: #5CB870;
+  --color-stat-blue: #4A90D9;
 
   --font-serif: "Georgia", "Times New Roman", serif;
   --font-sans: "Inter", system-ui, sans-serif;

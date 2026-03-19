@@ -87,8 +87,9 @@ const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
           class="space-y-4"
         >
           <div>
-            <label class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Nombre</label>
+            <label for="contact-name" class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Nombre</label>
             <input
+              id="contact-name"
               type="text"
               name="name"
               placeholder="Su nombre completo"
@@ -97,8 +98,9 @@ const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
             />
           </div>
           <div>
-            <label class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Correo electrónico</label>
+            <label for="contact-email" class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Correo electrónico</label>
             <input
+              id="contact-email"
               type="email"
               name="email"
               placeholder="correo@ejemplo.com"
@@ -107,8 +109,9 @@ const whatsappURL = `https://wa.me/${whatsappNumber}?text=${whatsappMsg}`;
             />
           </div>
           <div>
-            <label class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Consulta</label>
+            <label for="contact-message" class="block text-xs font-medium text-text-muted uppercase tracking-wide mb-1.5">Consulta</label>
             <textarea
+              id="contact-message"
               name="body"
               placeholder="Describa brevemente su situación legal..."
               rows="4"
