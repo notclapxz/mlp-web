@@ -146,12 +146,6 @@ const credenciales = [
           <div class="flex items-center justify-between mb-4">
             <p class="text-xs font-medium tracking-widest text-text-muted uppercase">Formación académica</p>
             <div class="flex items-center gap-1.5">
-              <!-- Flecha anterior — solo desktop -->
-              <button id="cert-prev" class="cert-nav-btn hidden sm:flex" aria-label="Anterior" title="Anterior">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="15 18 9 12 15 6"/>
-                </svg>
-              </button>
               <!-- Play / Pause -->
               <button id="cert-play" class="cert-nav-btn" aria-label="Pausar carrusel" title="Pausar">
                 <svg id="cert-icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -159,12 +153,6 @@ const credenciales = [
                 </svg>
                 <svg id="cert-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none">
                   <polygon points="5 3 19 12 5 21 5 3"/>
-                </svg>
-              </button>
-              <!-- Flecha siguiente — solo desktop -->
-              <button id="cert-next" class="cert-nav-btn hidden sm:flex" aria-label="Siguiente" title="Siguiente">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <polyline points="9 18 15 12 9 6"/>
                 </svg>
               </button>
             </div>
@@ -271,15 +259,7 @@ const credenciales = [
     to   { transform: translateX(-50%); }
   }
 
-  /* ── Flechas ocultas en mobile (el CSS scoped sobreescribe hidden de Tailwind) ── */
-  @media (max-width: 639px) {
-    #cert-prev,
-    #cert-next {
-      display: none !important;
-    }
-  }
-
-  /* ── Botones de navegación (prev / play-pause / next) — mismo estilo ── */
+  /* ── Botón play/pause ── */
   .cert-nav-btn {
     display: flex;
     align-items: center;
@@ -391,8 +371,6 @@ const credenciales = [
   // ── Carrusel: estado compartido ──
   const track     = document.getElementById('cert-track') as HTMLElement;
   const playBtn   = document.getElementById('cert-play') as HTMLButtonElement;
-  const prevBtn   = document.getElementById('cert-prev') as HTMLButtonElement;
-  const nextBtn   = document.getElementById('cert-next') as HTMLButtonElement;
   const iconPause = document.getElementById('cert-icon-pause') as HTMLElement;
   const iconPlay  = document.getElementById('cert-icon-play') as HTMLElement;
 
@@ -406,67 +384,6 @@ const credenciales = [
     iconPlay.style.display  = paused ? '' : 'none';
     playBtn.setAttribute('aria-label', paused ? 'Reanudar carrusel' : 'Pausar carrusel');
     playBtn.setAttribute('title', paused ? 'Reanudar' : 'Pausar');
-  });
-
-  // ── Navegación manual: prev / next ──
-  // Estrategia: pausar la animación CSS y manipular scroll del wrapper
-  // El wrapper tiene overflow:hidden, el track tiene width:max-content
-  // Usamos scrollLeft en el WRAPPER para mover sin romper el loop CSS
-  const wrapper = track.parentElement as HTMLElement;
-
-  // Ancho de una card + gap (128px card + 12px gap = 140px)
-  const CARD_WIDTH = 140;
-
-  function pauseAutoplay() {
-    if (!paused) {
-      paused = true;
-      // Antes de pausar la animación CSS, capturamos la posición actual
-      // para que el scroll manual continúe desde ahí sin saltar
-      const computedStyle = getComputedStyle(track);
-      const matrix = new DOMMatrix(computedStyle.transform);
-      // Aplicamos la posición actual como translateX inline y pausamos
-      track.style.transform = `translateX(${matrix.m41}px)`;
-      track.style.animation = 'none';
-      iconPause.style.display = 'none';
-      iconPlay.style.display  = '';
-      playBtn.setAttribute('aria-label', 'Reanudar carrusel');
-      playBtn.setAttribute('title', 'Reanudar');
-    }
-  }
-
-  // Al reanudar desde play btn, quitamos el transform inline y restauramos la animación
-  playBtn?.addEventListener('click', () => {
-    // Si está pausado por nav manual (animation:none), restauramos la animación
-    if (track.style.animation === 'none') {
-      track.style.transform = '';
-      track.style.animation = '';
-    }
-  }, true); // capture: true para que corra ANTES del listener principal de abajo
-
-  // Offset manual del track (solo cuando está en modo "nav manual")
-  let manualOffset = 0;
-
-  prevBtn?.addEventListener('click', () => {
-    pauseAutoplay();
-    // Si acabamos de pausar, inicializar manualOffset desde la posición actual
-    const computedStyle = getComputedStyle(track);
-    const matrix = new DOMMatrix(computedStyle.transform);
-    manualOffset = matrix.m41;
-    // Mover una card hacia la derecha (anterior)
-    manualOffset = Math.min(manualOffset + CARD_WIDTH, 0);
-    track.style.transform = `translateX(${manualOffset}px)`;
-  });
-
-  nextBtn?.addEventListener('click', () => {
-    pauseAutoplay();
-    const computedStyle = getComputedStyle(track);
-    const matrix = new DOMMatrix(computedStyle.transform);
-    manualOffset = matrix.m41;
-    // Mover una card hacia la izquierda (siguiente)
-    // Límite: no ir más allá del 50% del track (= el set clonado)
-    const halfTrack = -(track.scrollWidth / 2);
-    manualOffset = Math.max(manualOffset - CARD_WIDTH, halfTrack);
-    track.style.transform = `translateX(${manualOffset}px)`;
   });
 
   // ── Fix 1: Modal PDF — URLs ya están pre-encoded en el frontmatter ──
