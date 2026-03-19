@@ -6,7 +6,7 @@ const credenciales = [
     inst: 'PUCP',
     year: '1997',
     preview: '/certificados/previews/01-titulo-abogado-pucp.png',
-    pdf: '/certificados/Título de Abogado PUCP 31.07.2002.pdf',
+    pdf: '/certificados/T%C3%ADtulo%20de%20Abogado%20PUCP%2031.07.2002.pdf',
     color: '#2B6CB0',
   },
   {
@@ -15,7 +15,7 @@ const credenciales = [
     inst: 'UNMSM',
     year: '2006',
     preview: '/certificados/previews/02-maestria-derecho-penal.png',
-    pdf: '/certificados/Constancia de Estudios de Maestría en Derecho Penal.pdf',
+    pdf: '/certificados/Constancia%20de%20Estudios%20de%20Maestr%C3%ADa%20en%20Derecho%20Penal.pdf',
     color: '#1A1A2E',
   },
   {
@@ -24,7 +24,7 @@ const credenciales = [
     inst: 'EUCIM Business School',
     year: '2018',
     preview: '/certificados/previews/03-master-gerencia-publica.png',
-    pdf: '/certificados/Título Propio Master en Gerencia Pública Apostillado.pdf',
+    pdf: '/certificados/T%C3%ADtulo%20Propio%20Master%20en%20Gerencia%20P%C3%BAblica%20Apostillado.pdf',
     color: '#3A7D44',
   },
   {
@@ -33,7 +33,7 @@ const credenciales = [
     inst: 'European Open Business School',
     year: '2021',
     preview: '/certificados/previews/04-master-alta-direccion.png',
-    pdf: '/certificados/Máster Alta Dirección Empresarial Universidad de Álcala.pdf',
+    pdf: '/certificados/M%C3%A1ster%20Alta%20Direcci%C3%B3n%20Empresarial%20Universidad%20de%20%C3%81lcala.pdf',
     color: '#E8B84B',
   },
   {
@@ -42,7 +42,7 @@ const credenciales = [
     inst: 'Univ. de Salamanca',
     year: '2025',
     preview: '/certificados/previews/05-master-politica-criminal.png',
-    pdf: '/certificados/Diploma Máster en Política Criminal.pdf',
+    pdf: '/certificados/Diploma%20M%C3%A1ster%20en%20Pol%C3%ADtica%20Criminal.pdf',
     color: '#2B6CB0',
   },
   {
@@ -51,7 +51,7 @@ const credenciales = [
     inst: 'Instituto para la Calidad — PUCP',
     year: '2021',
     preview: '/certificados/previews/06-diploma-compliance.png',
-    pdf: '/certificados/Diploma Compliance Corporativo y Auditoría de Riesgos.pdf',
+    pdf: '/certificados/Diploma%20Compliance%20Corporativo%20y%20Auditor%C3%ADa%20de%20Riesgos.pdf',
     color: '#3A7D44',
   },
   {
@@ -60,7 +60,7 @@ const credenciales = [
     inst: 'Instituto para la Calidad — PUCP',
     year: '2021',
     preview: '/certificados/previews/07-constancia-primer-puesto.png',
-    pdf: '/certificados/Constancia Primer Puesto Compliance Corporativo y Auditoría de Riesgos.pdf',
+    pdf: '/certificados/Constancia%20Primer%20Puesto%20Compliance%20Corporativo%20y%20Auditor%C3%ADa%20de%20Riesgos.pdf',
     color: '#E8B84B',
   },
 ];
@@ -87,10 +87,11 @@ const credenciales = [
       />
     </div>
 
+    <!-- Fix 4: grid con items-start — columna izquierda sticky para no quedar flotando -->
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
 
-      <!-- Foto — columna izquierda (2/5) -->
-      <div class="reveal lg:col-span-2 flex flex-col items-center lg:items-start gap-6">
+      <!-- Foto — columna izquierda (2/5) — sticky para acompañar el scroll de la derecha -->
+      <div class="reveal lg:col-span-2 flex flex-col items-center lg:items-start gap-6 lg:sticky lg:top-28">
         <!-- Foto circular con ring de acento -->
         <div class="relative">
           <div class="w-48 h-48 lg:w-52 lg:h-52 rounded-full ring-4 ring-blue/15 ring-offset-4 ring-offset-cream overflow-hidden shadow-lg">
@@ -112,6 +113,24 @@ const credenciales = [
           <p class="font-semibold text-text text-base leading-tight">Rolando Zagret<br/>Risco Valera</p>
           <p class="text-sm text-text-muted mt-1.5">Fundador y Socio principal · San Isidro, Lima</p>
         </div>
+
+        <!-- Especialidades: llenan el espacio vacío con info útil -->
+        <div class="hidden lg:block w-full">
+          <p class="text-[10px] font-medium tracking-widest text-text-muted uppercase mb-3">Áreas de práctica</p>
+          <ul class="flex flex-col gap-2">
+            {[
+              { label: 'Derecho Penal', color: '#2B6CB0' },
+              { label: 'Derecho Civil', color: '#3A7D44' },
+              { label: 'Derecho Laboral', color: '#E8B84B' },
+              { label: 'Derecho Administrativo', color: '#5A6478' },
+            ].map((area) => (
+              <li class="flex items-center gap-2.5 text-sm text-text-muted">
+                <span class="w-1.5 h-1.5 rounded-full flex-none" style={`background:${area.color}`}></span>
+                {area.label}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <!-- Contenido derecho — columna derecha (3/5) -->
@@ -121,23 +140,37 @@ const credenciales = [
           Risco Valera Abogados &amp; Consultores es un estudio jurídico con sede en San Isidro, Lima. Con más de 20 años de ejercicio profesional y más de 15 años bajo la marca MLP, brindamos asesoría legal a personas naturales y empresas con un enfoque directo y orientado a resultados.
         </p>
 
-        <!-- Formación académica — ticker infinito -->
+        <!-- Formación académica — ticker -->
         <div class="reveal reveal-delay-1">
-          <!-- Header: label + botón pause/play -->
+          <!-- Header: label + controles (prev / play-pause / next) -->
           <div class="flex items-center justify-between mb-4">
             <p class="text-xs font-medium tracking-widest text-text-muted uppercase">Formación académica</p>
-            <button id="cert-play" class="cert-play-btn" aria-label="Pausar carrusel" title="Pausar">
-              <!-- Ícono pause (visible cuando corre) -->
-              <svg id="cert-icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
-              </svg>
-              <!-- Ícono play (visible cuando está pausado) -->
-              <svg id="cert-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none">
-                <polygon points="5 3 19 12 5 21 5 3"/>
-              </svg>
-            </button>
+            <div class="flex items-center gap-1.5">
+              <!-- Flecha anterior — solo desktop -->
+              <button id="cert-prev" class="cert-nav-btn hidden sm:flex" aria-label="Anterior" title="Anterior">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="15 18 9 12 15 6"/>
+                </svg>
+              </button>
+              <!-- Play / Pause -->
+              <button id="cert-play" class="cert-nav-btn" aria-label="Pausar carrusel" title="Pausar">
+                <svg id="cert-icon-pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
+                </svg>
+                <svg id="cert-icon-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+              </button>
+              <!-- Flecha siguiente — solo desktop -->
+              <button id="cert-next" class="cert-nav-btn hidden sm:flex" aria-label="Siguiente" title="Siguiente">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+            </div>
           </div>
 
+          <!-- Fix 2: padding-left en el wrapper para que la primera card no quede bajo el fade -->
           <!-- Ticker wrapper: overflow hidden + mask fade en bordes -->
           <div class="cert-ticker-wrapper">
             <div class="cert-ticker-track" id="cert-track">
@@ -216,11 +249,13 @@ const credenciales = [
 </div>
 
 <style>
-  /* ── Ticker: wrapper con overflow hidden + fade en bordes ── */
+  /* ── Fix 2: padding-left para que la primera card no quede bajo el fade del mask ── */
   .cert-ticker-wrapper {
     overflow: hidden;
-    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    /* El fade empieza en 10% → la primera card arranca visible */
+    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+    padding-left: 0.5rem;
   }
 
   /* ── Track: flex en línea, animación CSS pura ── */
@@ -232,15 +267,14 @@ const credenciales = [
     animation: cert-scroll 28s linear infinite;
   }
 
-
   /* ── Keyframe: mueve exactamente el 50% (= 1 set de 7 cards) ── */
   @keyframes cert-scroll {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
   }
 
-  /* ── Botón play/pause ── */
-  .cert-play-btn {
+  /* ── Botones de navegación (prev / play-pause / next) — mismo estilo ── */
+  .cert-nav-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -254,7 +288,7 @@ const credenciales = [
     transition: all 0.15s ease;
     flex-shrink: 0;
   }
-  .cert-play-btn:hover {
+  .cert-nav-btn:hover {
     background: #f8f8f6;
     border-color: #2B6CB0;
     color: #2B6CB0;
@@ -273,6 +307,7 @@ const credenciales = [
     .cert-ticker-wrapper {
       mask-image: none;
       -webkit-mask-image: none;
+      padding-left: 0;
     }
   }
 
@@ -347,15 +382,17 @@ const credenciales = [
 </style>
 
 <script>
-  // ── Ticker: botón play/pause ──
-  // Solo el botón controla pause — hover NO pausa
+  // ── Carrusel: estado compartido ──
   const track     = document.getElementById('cert-track') as HTMLElement;
   const playBtn   = document.getElementById('cert-play') as HTMLButtonElement;
+  const prevBtn   = document.getElementById('cert-prev') as HTMLButtonElement;
+  const nextBtn   = document.getElementById('cert-next') as HTMLButtonElement;
   const iconPause = document.getElementById('cert-icon-pause') as HTMLElement;
   const iconPlay  = document.getElementById('cert-icon-play') as HTMLElement;
 
   let paused = false;
 
+  // ── Play / Pause ──
   playBtn?.addEventListener('click', () => {
     paused = !paused;
     track.style.animationPlayState = paused ? 'paused' : 'running';
@@ -365,43 +402,103 @@ const credenciales = [
     playBtn.setAttribute('title', paused ? 'Reanudar' : 'Pausar');
   });
 
-  // ── Modal PDF ──
+  // ── Navegación manual: prev / next ──
+  // Estrategia: pausar la animación CSS y manipular scroll del wrapper
+  // El wrapper tiene overflow:hidden, el track tiene width:max-content
+  // Usamos scrollLeft en el WRAPPER para mover sin romper el loop CSS
+  const wrapper = track.parentElement as HTMLElement;
+
+  // Ancho de una card + gap (128px card + 12px gap = 140px)
+  const CARD_WIDTH = 140;
+
+  function pauseAutoplay() {
+    if (!paused) {
+      paused = true;
+      // Antes de pausar la animación CSS, capturamos la posición actual
+      // para que el scroll manual continúe desde ahí sin saltar
+      const computedStyle = getComputedStyle(track);
+      const matrix = new DOMMatrix(computedStyle.transform);
+      // Aplicamos la posición actual como translateX inline y pausamos
+      track.style.transform = `translateX(${matrix.m41}px)`;
+      track.style.animation = 'none';
+      iconPause.style.display = 'none';
+      iconPlay.style.display  = '';
+      playBtn.setAttribute('aria-label', 'Reanudar carrusel');
+      playBtn.setAttribute('title', 'Reanudar');
+    }
+  }
+
+  // Al reanudar desde play btn, quitamos el transform inline y restauramos la animación
+  playBtn?.addEventListener('click', () => {
+    // Si está pausado por nav manual (animation:none), restauramos la animación
+    if (track.style.animation === 'none') {
+      track.style.transform = '';
+      track.style.animation = '';
+    }
+  }, true); // capture: true para que corra ANTES del listener principal de abajo
+
+  // Offset manual del track (solo cuando está en modo "nav manual")
+  let manualOffset = 0;
+
+  prevBtn?.addEventListener('click', () => {
+    pauseAutoplay();
+    // Si acabamos de pausar, inicializar manualOffset desde la posición actual
+    const computedStyle = getComputedStyle(track);
+    const matrix = new DOMMatrix(computedStyle.transform);
+    manualOffset = matrix.m41;
+    // Mover una card hacia la derecha (anterior)
+    manualOffset = Math.min(manualOffset + CARD_WIDTH, 0);
+    track.style.transform = `translateX(${manualOffset}px)`;
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    pauseAutoplay();
+    const computedStyle = getComputedStyle(track);
+    const matrix = new DOMMatrix(computedStyle.transform);
+    manualOffset = matrix.m41;
+    // Mover una card hacia la izquierda (siguiente)
+    // Límite: no ir más allá del 50% del track (= el set clonado)
+    const halfTrack = -(track.scrollWidth / 2);
+    manualOffset = Math.max(manualOffset - CARD_WIDTH, halfTrack);
+    track.style.transform = `translateX(${manualOffset}px)`;
+  });
+
+  // ── Fix 1: Modal PDF — URLs ya están pre-encoded en el frontmatter ──
+  // data-pdf contiene paths con %XX encoding correcto
   const modal      = document.getElementById('cert-modal') as HTMLElement;
   const iframe     = document.getElementById('cert-modal-iframe') as HTMLIFrameElement;
   const modalTitle = document.getElementById('cert-modal-title') as HTMLElement;
   const closeBtn   = document.getElementById('cert-modal-close') as HTMLElement;
 
   function openModal(pdf: string, titulo: string) {
+    // pdf ya viene con encoding correcto desde data-pdf
+    // Solo agregamos los parámetros de visor al fragment
     iframe.src = pdf + '#toolbar=0&navpanes=0&scrollbar=0';
     modalTitle.textContent = titulo;
     modal.classList.add('open');
-    document.body.style.overflow = 'hidden'; // evita scroll del fondo
+    document.body.style.overflow = 'hidden';
   }
 
   function closeModal() {
     modal.classList.remove('open');
-    iframe.src = ''; // libera el PDF de memoria
+    iframe.src = '';
     document.body.style.overflow = '';
   }
 
-  // Abrir al hacer click en tarjeta (captura ambos sets via class selector)
   document.querySelectorAll('.cert-card').forEach((card) => {
     card.addEventListener('click', () => {
       const pdf    = (card as HTMLElement).dataset.pdf ?? '';
       const titulo = (card as HTMLElement).dataset.titulo ?? '';
-      openModal(pdf, titulo);
+      if (pdf) openModal(pdf, titulo);
     });
   });
 
-  // Cerrar con botón X
   closeBtn?.addEventListener('click', closeModal);
 
-  // Cerrar al hacer click en el backdrop (fuera del box)
   modal?.addEventListener('click', (e) => {
     if (e.target === modal) closeModal();
   });
 
-  // Cerrar con Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
   });
