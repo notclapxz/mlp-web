@@ -87,11 +87,11 @@ const credenciales = [
       />
     </div>
 
-    <!-- Fix 4: grid con items-start — columna izquierda sticky para no quedar flotando -->
+    <!-- Grid: columna izquierda con sticky para acompañar el scroll de la columna derecha -->
     <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-start">
 
-      <!-- Foto — columna izquierda (2/5) — sticky para acompañar el scroll de la derecha -->
-      <div class="reveal lg:col-span-2 flex flex-col items-center lg:items-start gap-6 lg:sticky lg:top-28">
+      <!-- Foto — columna izquierda (2/5) -->
+      <div class="reveal lg:col-span-2 flex flex-col items-center lg:items-start gap-6">
         <!-- Foto circular con ring de acento -->
         <div class="relative">
           <div class="w-48 h-48 lg:w-52 lg:h-52 rounded-full ring-4 ring-blue/15 ring-offset-4 ring-offset-cream overflow-hidden shadow-lg">
@@ -249,13 +249,11 @@ const credenciales = [
 </div>
 
 <style>
-  /* ── Fix 2: padding-left para que la primera card no quede bajo el fade del mask ── */
+  /* ── Wrapper: sin fade en el borde izquierdo para que la primera card se vea completa ── */
   .cert-ticker-wrapper {
     overflow: hidden;
-    /* El fade empieza en 10% → la primera card arranca visible */
-    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-    padding-left: 0.5rem;
+    mask-image: linear-gradient(to right, black 0%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 0%, black 85%, transparent 100%);
   }
 
   /* ── Track: flex en línea, animación CSS pura ── */
@@ -271,6 +269,14 @@ const credenciales = [
   @keyframes cert-scroll {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
+  }
+
+  /* ── Flechas ocultas en mobile (el CSS scoped sobreescribe hidden de Tailwind) ── */
+  @media (max-width: 639px) {
+    #cert-prev,
+    #cert-next {
+      display: none !important;
+    }
   }
 
   /* ── Botones de navegación (prev / play-pause / next) — mismo estilo ── */
