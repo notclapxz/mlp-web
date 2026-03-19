@@ -20,6 +20,11 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# Screenshots de review — solo en la raíz (no afecta public/)
+/*.png
+/*.jpeg
+/*.jpg
+
 # jetbrains setting folder
 .idea/
 .vercel
