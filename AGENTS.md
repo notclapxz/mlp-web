@@ -4,7 +4,7 @@
 **Estudio**: Media & Legal Planning Chamber  
 **URL producción**: `https://mlpperu.com`  
 **Stack**: Astro 6 · Tailwind CSS v4 · TypeScript · Deploy en Vercel (automático)  
-**Working directory**: `/Users/sebastian/Desktop/WEBS/WEBS APPS/mlp-web/`  
+**Working directory**: `/Users/sebastian/Desktop/MLP/mlp-web/` (movido desde `WEBS APPS/` el 09/10/2026)  
 **Repo git**: https://github.com/notclapxz/mlp-web (rama `main`)
 
 ---
@@ -87,6 +87,11 @@
 
 ### Reglas de desarrollo
 - **NUNCA buildear local** — solo `commit + push`
+- **Nunca desplegar con la CLI de Vercel desde local**: en mayo se publicó así sin commitear y `main` quedó
+  detrás de producción; un push habría devuelto la web a marzo (arreglado en b47f7d9, 09/10/2026)
+- **Nada de `backdrop-filter` ni `filter: blur` animado**: trababan el scroll en Zen (motor de Firefox);
+  quitado de la barra en 87b0f7c tras compararlo con y sin en el Mac de Sebastian
+- El workflow «Deploy to GoDaddy Hosting» está desactivado en GitHub (FTP 530; la web es de Vercel)
 - **Conventional commits** siempre, sin Co-Authored-By
 - Tailwind v4 — variables en `@theme {}`, NO en `tailwind.config.js`
 - CSS puro para animaciones — sin librerías JS
