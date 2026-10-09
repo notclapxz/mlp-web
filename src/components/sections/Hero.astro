@@ -1,10 +1,10 @@
 ---
 ---
 
-<section id="inicio" class="hero-section relative min-h-screen flex items-center justify-center pt-16 overflow-hidden" style="background-color: #1A1A2E">
+<section id="inicio" class="hero-section relative min-h-screen flex items-start justify-center pt-16 overflow-hidden" style="background-color: #1A1A2E">
   <!-- Imagen de fondo — fallback oscuro si no carga -->
   <img
-    src="/hero-oficina.jpeg"
+    src="/oficina-reuniones.png"
     alt=""
     aria-hidden="true"
     fetchpriority="high"
@@ -18,36 +18,20 @@
   <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" style="z-index:1"></div>
 
   <!-- Contenido -->
-  <div class="relative max-w-5xl mx-auto px-6 py-20 text-center" style="z-index:2">
+  <div class="relative w-full max-w-5xl mx-auto px-6 text-center flex flex-col min-h-[calc(100vh-4rem)]" style="z-index:2">
 
-    <!-- Logo MLP -->
-    <div class="mb-10 flex justify-center">
-      <div class="w-24 h-24 flex items-center justify-center rounded-2xl bg-white/20 border border-white/30 shadow-lg">
-        <span class="text-4xl font-bold tracking-tight leading-none">
-          <span class="text-gold">M</span><span class="text-green">L</span><span class="text-blue">P</span>
-        </span>
-      </div>
+    <!-- Texto centrado verticalmente -->
+    <div class="flex-1 flex flex-col items-center justify-center">
+      <h1 class="reveal reveal-delay-1 text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-3">
+        Risco Valera Abogados &amp; Consultores
+      </h1>
+      <p class="reveal reveal-delay-2 text-base sm:text-lg text-white/75 font-light tracking-wide uppercase">
+        Media & Legal Planning Chamber
+      </p>
     </div>
 
-    <!-- Nombre -->
-    <h1 class="reveal reveal-delay-1 text-3xl sm:text-4xl lg:text-5xl font-semibold text-white leading-tight mb-3 tracking-wide uppercase">
-      Media & Legal Planning Chamber
-    </h1>
-
-    <p class="reveal reveal-delay-2 text-lg sm:text-xl text-white/85 font-medium mb-2">
-      Risco Valera Abogados &amp; Consultores
-    </p>
-
-    <p class="reveal reveal-delay-3 text-base sm:text-lg text-white/75 font-light mb-2">
-      Rolando Zagret Risco Valera &mdash; Fundador y Socio principal
-    </p>
-
-    <p class="reveal reveal-delay-4 text-base sm:text-lg text-white/80 font-light max-w-xl mx-auto mb-10 leading-relaxed">
-      Asesoría legal con experiencia comprobada
-    </p>
-
-    <!-- CTA -->
-    <div class="reveal reveal-delay-5 flex flex-col sm:flex-row gap-3 justify-center items-center">
+    <!-- CTA pegado al fondo -->
+    <div class="pb-16 reveal reveal-delay-3 flex flex-col sm:flex-row gap-3 justify-center items-center">
       <a
         href="#contacto"
         class="px-8 py-3.5 bg-white text-text rounded-md hover:bg-white/90 transition-colors duration-200 text-sm font-medium"
@@ -62,25 +46,6 @@
       </a>
     </div>
 
-    <!-- Stats -->
-    <div class="reveal mt-16 w-full flex flex-wrap justify-center gap-10 border-t border-white/20 pt-10">
-      <div class="text-center">
-        <p class="text-2xl font-light text-white">20+</p>
-        <p class="text-xs text-white/60 uppercase tracking-wide mt-1">Años de ejercicio</p>
-      </div>
-      <div class="text-center">
-        <p class="text-2xl font-light text-gold">15+</p>
-        <p class="text-xs text-white/60 uppercase tracking-wide mt-1">Años de MLP</p>
-      </div>
-      <div class="text-center">
-        <p class="text-2xl font-light text-stat-green">5</p>
-        <p class="text-xs text-white/60 uppercase tracking-wide mt-1">Maestrías y posgrados</p>
-      </div>
-      <div class="text-center">
-        <p class="text-2xl font-light text-stat-blue">4</p>
-        <p class="text-xs text-white/60 uppercase tracking-wide mt-1">Áreas de práctica</p>
-      </div>
-    </div>
 
   </div>
 </section>
