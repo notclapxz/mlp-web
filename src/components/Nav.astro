@@ -1,7 +1,7 @@
 ---
 ---
 
-<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 nav-transparent">
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 transition-colors duration-300 nav-transparent">
   <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
     <div></div>
 
@@ -11,7 +11,7 @@
       <a href="#nosotros" class="nav-link transition-colors duration-200 hidden sm:block">Nosotros</a>
       <a
         href="#contacto"
-        class="px-4 py-2 bg-white/20 backdrop-blur-sm text-white text-sm rounded-md hover:bg-white hover:text-text transition-all duration-200 nav-cta"
+        class="px-4 py-2 bg-white/20 text-white text-sm rounded-md hover:bg-white hover:text-text transition-all duration-200 nav-cta"
       >
         Consultar
       </a>
@@ -22,14 +22,14 @@
 <script>
   const nav = document.getElementById('main-nav');
   if (nav) {
+    // Solo toca las clases al cruzar los 80 px: hacerlo en cada evento de scroll recalcula estilos sin necesidad.
+    let solida: boolean | null = null;
     const handleScroll = () => {
-      if (window.scrollY > 80) {
-        nav.classList.remove('nav-transparent');
-        nav.classList.add('nav-solid');
-      } else {
-        nav.classList.remove('nav-solid');
-        nav.classList.add('nav-transparent');
-      }
+      const ahora = window.scrollY > 80;
+      if (ahora === solida) return;
+      solida = ahora;
+      nav.classList.toggle('nav-solid', ahora);
+      nav.classList.toggle('nav-transparent', !ahora);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();

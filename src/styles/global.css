@@ -47,9 +47,10 @@ body {
   color: rgba(255, 255, 255, 0.7);
 }
 
+/* Sin backdrop-filter: desenfocar lo que pasa por debajo en cada fotograma trababa el scroll en Zen
+   (motor de Firefox). Comparado con y sin en el Mac de Sebastian el 09/10/2026: sin él va mejor. */
 .nav-solid {
-  background-color: rgba(250, 250, 248, 0.95);
-  backdrop-filter: blur(8px);
+  background-color: rgba(250, 250, 248, 0.97);
   border-bottom: 1px solid #E8E6E0;
 }
 
@@ -66,7 +67,6 @@ body {
 .nav-solid .nav-cta {
   background-color: var(--color-blue);
   color: #ffffff;
-  backdrop-filter: none;
 }
 .nav-solid .nav-cta:hover {
   background-color: var(--color-blue-dark);
